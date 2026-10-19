@@ -194,3 +194,4 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .switch::before{content:"";position:absolute;inset:-9px -4px}
 /* Hide the desktop scrollbar; touch scrolling still works. */
 .body{scrollbar-width:none}.body::-webkit-scrollbar{display:none}
+.screen{touch-action:pan-y}

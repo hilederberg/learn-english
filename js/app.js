@@ -7,7 +7,7 @@ import * as E from './engine.js';
 import { buildBackup, validateBackup, backupFileName } from './backup.js';
 import { speak, stopSpeaking, unlockTTS, startRecording, playBlob } from './tts.js';
 import * as UI from './screens.js';
-import { initFx, go, current, isBusy, openSheet, closeSheet, press, pop, A, EASE, SPRING, SOFT, idleHint, resetBars, cancelTimers } from './fx.js';
+import { initFx, go, dragStart, current, isBusy, openSheet, closeSheet, press, pop, A, EASE, SPRING, SOFT, idleHint, resetBars, cancelTimers } from './fx.js';
 
 const VERSION = '1.0';
 const $app = document.getElementById('app');
@@ -416,24 +416,53 @@ $app.addEventListener('click', async e => {
 // Tabs: finger right = next tab, finger left = previous. Inner screens: finger left = back (or right from the left edge).
 // No swipes inside a session, so an exercise is never left by accident.
 const TABS = ['home', 'units', 'dialogs', 'settings'];
-let touch = null;
-$app.addEventListener('touchstart', e => {
-  touch = e.touches.length === 1 && !e.target.closest('input,textarea,.seg,.switch') ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
-}, { passive: true });
-$app.addEventListener('touchend', async e => {
-  if (!touch) return;
-  const p = e.changedTouches[0], dx = p.clientX - touch.x, dy = p.clientY - touch.y, fromEdge = touch.x < 32, dt = Date.now() - touch.t; touch = null;
-  if (Math.abs(dx) < 60 || Math.abs(dx) < 1.6 * Math.abs(dy) || dt > 800) return;
-  const cur = current(); if (!cur || isBusy() || busyAct || cur.el.querySelector('.dyn')) return;
+// Tabs and plain "back" screens follow the finger (fx.dragStart); onboarding and edge swipes fall back to a tap.
+let touch = null, drag = null;
+const canSwipe = () => { const c = current(); return c && !isBusy() && !busyAct && !c.el.querySelector('.dyn') ? c : null; };
+function beginDrag(dx) {
+  const cur = canSwipe(); if (!cur) return null;
+  let to = null, dir = 'back';
   const tab = TABS.indexOf(cur.name);
-  if (tab >= 0) {
-    const to = TABS[tab + (dx > 0 ? 1 : -1)]; if (!to) return;
-    busyAct = true; try { await nav(to, dx > 0 ? 'push' : 'back'); } finally { busyAct = false; }
-    return;
-  }
-  if (OB.includes(cur.name) && dx > 0) { cur.el.querySelector('.btn[data-a="ob"]')?.click(); return; } // onboarding: forward
-  if (dx < 0 || fromEdge) cur.el.querySelector('.body > .row:first-child > .close.flip[data-a]')?.click(); // the screen's own back button
+  if (tab >= 0) { to = TABS[tab + (dx > 0 ? 1 : -1)]; dir = dx > 0 ? 'fwd' : 'back'; }
+  else if (dx < 0) to = cur.el.querySelector('.body > .row:first-child > .close.flip[data-a="back"]')?.dataset.v;
+  if (!to) return null;
+  const [n, html] = view(to), h = dragStart(n, html, dir); if (!h) return null;
+  stopSpeaking(); S.ui.audio++; cancelRec();
+  return { h, to, dir };
+}
+$app.addEventListener('touchstart', e => {
+  touch = e.touches.length === 1 && !e.target.closest('input,textarea,.seg,.switch') ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now(), lx: e.touches[0].clientX, lt: Date.now(), v: 0 } : null;
 }, { passive: true });
+$app.addEventListener('touchmove', e => {
+  if (!touch) return;
+  const x = e.touches[0].clientX, dx = x - touch.x, dy = e.touches[0].clientY - touch.y, now = Date.now();
+  if (now > touch.lt) { touch.v = (x - touch.lx) / (now - touch.lt); touch.lx = x; touch.lt = now; }
+  if (!touch.dir) {
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+    touch.dir = Math.abs(dx) > 1.2 * Math.abs(dy) ? 'h' : 'v';
+    if (touch.dir === 'h') drag = beginDrag(dx);
+  }
+  if (drag) drag.h.move(dx);
+}, { passive: true });
+async function endDrag(dx, v) {
+  const d = drag; drag = null;
+  const sign = d.dir === 'fwd' ? 1 : -1, W = $app.clientWidth || 390;
+  const commit = sign * dx > W * 0.33 || (sign * v > 0.45 && sign * dx > 24); // a third of the way, or a quick flick
+  const el = await d.h.end(commit);
+  if (el) { if (d.to === 'home') S.preview = null; idleHint(el); }
+}
+$app.addEventListener('touchend', e => {
+  if (!touch) return;
+  const t = touch; touch = null;
+  const p = e.changedTouches[0], dx = p.clientX - t.x, dy = p.clientY - t.y;
+  if (drag) { endDrag(dx, t.v); return; }
+  // no live drag (onboarding, mic screen, edge swipe to the right): a quick swipe acts like the button
+  if (Math.abs(dx) < 60 || Math.abs(dx) < 1.6 * Math.abs(dy) || Date.now() - t.t > 800) return;
+  const cur = canSwipe(); if (!cur || TABS.includes(cur.name)) return;
+  if (OB.includes(cur.name) && dx > 0) { cur.el.querySelector('.btn[data-a="ob"]')?.click(); return; }
+  if (dx < 0 || t.x < 32) cur.el.querySelector('.body > .row:first-child > .close.flip[data-a]')?.click();
+}, { passive: true });
+$app.addEventListener('touchcancel', () => { touch = null; if (drag) { const d = drag; drag = null; d.h.end(false); } }, { passive: true });
 
 $app.addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) { onImportFile(e.target.files[0]); e.target.value = ''; } });
 $app.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'fillIn') { e.preventDefault(); onCheck(); } });

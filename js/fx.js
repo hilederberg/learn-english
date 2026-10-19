@@ -136,10 +136,10 @@ export async function go(name, html, mode = 'push', opts = {}) {
   else if (mode === 'push' || mode === 'next') {
     const d = mode === 'push' ? 680 : 600;
     anims.push(A(el, [{ transform: `translateX(${-100 * s}%)` }, { transform: 'none' }], opt(d)));
-    anims.push(A(prev, [{ transform: 'none', filter: 'brightness(1)' }, { transform: `translateX(${26 * s}%)`, filter: 'brightness(.9)' }], opt(d)));
+    anims.push(A(prev, [{ transform: 'none' }, { transform: `translateX(${26 * s}%)` }], opt(d)));
   } else if (mode === 'back') {
     el.style.zIndex = 1; prev.style.zIndex = 2;
-    anims.push(A(el, [{ transform: `translateX(${26 * s}%)`, filter: 'brightness(.9)' }, { transform: 'none', filter: 'brightness(1)' }], opt(680)));
+    anims.push(A(el, [{ transform: `translateX(${26 * s}%)` }, { transform: 'none' }], opt(680)));
     anims.push(A(prev, [{ transform: 'none' }, { transform: `translateX(${-100 * s}%)` }], opt(680)));
   } else if (mode === 'tab') {
     el.style.zIndex = 1; prev.style.zIndex = 2; prev.style.background = 'transparent';
@@ -167,6 +167,49 @@ export async function go(name, html, mode = 'push', opts = {}) {
   el.style.zIndex = '';
   busy = false;
   return el;
+}
+
+// ----- interactive swipe: the screens follow the finger --------------------------------------------
+// dir 'fwd': the new screen slides in from the left on top (RTL push). dir 'back': the current screen slides
+// out to the left, revealing the new one underneath (RTL back). Returns null if a transition is running.
+export function dragStart(name, html, dir) {
+  if (busy || !cur || !root) return null;
+  busy = true; token++;
+  const prev = cur.el, el = document.createElement('div'); el.className = 'screen'; el.dataset.name = name; el.innerHTML = html;
+  root.appendChild(el);
+  const W = root.clientWidth || 390, fwd = dir === 'fwd', top = fwd ? el : prev;
+  el.style.zIndex = fwd ? 2 : 1; prev.style.zIndex = fwd ? 1 : 2;
+  top.style.boxShadow = '0 0 30px rgba(0,0,0,.16)';
+  // Tab to tab: a copy of the tab bar floats above both screens, so it stays whole and still while they slide.
+  const nb = el.querySelector('.nav'), pb = prev.querySelector('.nav');
+  let fn = null;
+  if (nb && pb) { fn = pb.cloneNode(true); fn.style.zIndex = 9; root.appendChild(fn); pb.style.visibility = nb.style.visibility = 'hidden'; }
+  const tabOf = n => n && n.querySelector('.t.on')?.dataset.v, fromTab = tabOf(pb), toTab = tabOf(nb);
+  let p = 0;
+  const pos = q => fwd ? [-W * (1 - q), 0.26 * W * q] : [0.26 * W * (1 - q), -W * q]; // [new, old] x offsets
+  const tf = x => `translate3d(${x}px,0,0)`;
+  const set = q => {
+    p = Math.max(0, Math.min(1, q)); const [ex, px] = pos(p);
+    el.style.transform = tf(ex); prev.style.transform = tf(px);
+    if (fn) { const on = p > .5 ? toTab : fromTab; fn.querySelectorAll('.t').forEach(t => t.classList.toggle('on', t.dataset.v === on)); }
+  };
+  set(0);
+  return {
+    move(dx) { set((fwd ? dx : -dx) / W); },
+    async end(commit) {
+      const to = commit ? 1 : 0, [ex, px] = pos(to), ms = RM() ? 1 : Math.max(160, Math.round(340 * Math.abs(to - p)));
+      const o = { duration: ms, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' };
+      if (fn) fn.querySelectorAll('.t').forEach(t => t.classList.toggle('on', t.dataset.v === (commit ? toTab : fromTab))); // highlight where we are going
+      const as = [el.animate([{ transform: el.style.transform }, { transform: tf(ex) }], o), prev.animate([{ transform: prev.style.transform }, { transform: tf(px) }], o)];
+      await Promise.all(as.map(a => a.finished.catch(() => {})));
+      as.forEach(a => a.cancel()); top.style.boxShadow = '';
+      if (fn) { fn.remove(); if (nb) nb.style.visibility = ''; if (pb) pb.style.visibility = ''; }
+      if (commit) { prev.remove(); el.style.transform = ''; el.style.zIndex = ''; cur = { name, el }; }
+      else { el.remove(); prev.style.transform = ''; prev.style.zIndex = ''; }
+      busy = false;
+      return commit ? el : null;
+    },
+  };
 }
 
 // ----- sheets and dialogs (added on top of the current screen) -------------------------------------
