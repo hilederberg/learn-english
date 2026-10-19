@@ -3,12 +3,20 @@ let voice = null, unlocked = false;
 const supported = typeof speechSynthesis !== 'undefined';
 export const ttsSupported = supported;
 
+// Novelty and legacy robotic voices that iOS/macOS list as en-US. Never pick these.
+const BAD = /\b(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Junior|Ralph|Fred|Kathy|Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley)\b/i;
 function pickVoice() {
   if (!supported) return null;
-  const vs = speechSynthesis.getVoices().filter(v => /^en[-_]US$/i.test(v.lang));
+  const all = speechSynthesis.getVoices().filter(v => !BAD.test(v.name));
+  let vs = all.filter(v => /^en[-_]US$/i.test(v.lang));
+  if (!vs.length) vs = all.filter(v => /^en[-_]/i.test(v.lang));
   if (!vs.length) return null;
-  const pref = ['Ava', 'Samantha', 'Allison', 'Nicky', 'Joelle', 'Evan', 'Zoe', 'Google US English'];
-  const rank = v => { const i = pref.findIndex(p => v.name.includes(p)); const q = /premium|enhanced/i.test(v.name) ? -20 : 0; return (i < 0 ? 50 : i) + q; };
+  const pref = ['Ava', 'Zoe', 'Samantha', 'Allison', 'Evan', 'Nathan', 'Tom', 'Susan', 'Nicky', 'Joelle', 'Google US English', 'Microsoft Aria', 'Microsoft Jenny'];
+  const rank = v => {
+    const i = pref.findIndex(p => v.name.includes(p));
+    const q = /premium/i.test(v.name) ? -200 : /enhanced|natural|neural/i.test(v.name) ? -100 : 0;
+    return (i < 0 ? 50 : i) + q;
+  };
   return vs.slice().sort((a, b) => rank(a) - rank(b))[0];
 }
 if (supported) { speechSynthesis.onvoiceschanged = () => { voice = pickVoice(); }; voice = pickVoice(); }

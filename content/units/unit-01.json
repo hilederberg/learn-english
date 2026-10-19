@@ -90,10 +90,10 @@
   {
    "id": "u01-010",
    "type": "phrase",
-   "en": "I'm fine, thank you",
+   "en": "I'm good, thanks",
    "he": "אני בסדר, תודה",
    "icon": "check",
-   "exampleEn": "I'm fine, thank you. And you?",
+   "exampleEn": "I'm good, thanks. And you?",
    "exampleHe": "אני בסדר, תודה. ומה איתך?"
   },
   {
@@ -304,10 +304,10 @@
   {
    "id": "u01-033",
    "type": "phrase",
-   "en": "Can you speak slowly?",
+   "en": "Could you speak more slowly?",
    "he": "אפשר לדבר לאט יותר?",
    "icon": "slow",
-   "exampleEn": "Can you speak slowly, please?",
+   "exampleEn": "Could you speak more slowly, please?",
    "exampleHe": "אפשר לדבר לאט יותר, בבקשה?"
   },
   {
@@ -334,8 +334,8 @@
    "en": "I don't know",
    "he": "אני לא יודעת",
    "icon": "head",
-   "exampleEn": "I don't know the word.",
-   "exampleHe": "אני לא יודעת את המילה."
+   "exampleEn": "I don't know this word.",
+   "exampleHe": "אני לא מכירה את המילה הזו."
   },
   {
    "id": "u01-037",
@@ -407,8 +407,8 @@
    "en": "What's your phone number?",
    "he": "מה מספר הטלפון שלך?",
    "icon": "bell",
-   "exampleEn": "What's your phone number?",
-   "exampleHe": "מה מספר הטלפון שלך?"
+   "exampleEn": "What's your phone number? I'll text you.",
+   "exampleHe": "מה מספר הטלפון שלך? אשלח לך הודעה."
   },
   {
    "id": "u01-045",
@@ -597,12 +597,12 @@
     },
     {
      "speaker": "A",
-     "en": "That's great! Welcome to the class.",
-     "he": "זה מעולה! ברוכה הבאה לכיתה."
+     "en": "No problem! Welcome to the class.",
+     "he": "אין בעיה! ברוכה הבאה לכיתה."
     },
     {
      "speaker": "B",
-     "en": "Sorry, can you speak slowly, please?",
+     "en": "Sorry, could you speak more slowly, please?",
      "he": "סליחה, אפשר לדבר לאט יותר, בבקשה?"
     },
     {

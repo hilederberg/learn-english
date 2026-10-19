@@ -256,11 +256,11 @@
   {
    "id": "u02-028",
    "type": "phrase",
-   "en": "Does it contain nuts?",
-   "he": "זה מכיל אגוזים?",
+   "en": "Does it have nuts in it?",
+   "he": "יש בזה אגוזים?",
    "icon": "bell",
-   "exampleEn": "Does it contain nuts?",
-   "exampleHe": "זה מכיל אגוזים?"
+   "exampleEn": "Excuse me, does it have nuts in it?",
+   "exampleHe": "סליחה, יש בזה אגוזים?"
   },
   {
    "id": "u02-029",
@@ -411,11 +411,11 @@
   {
    "id": "u02-045",
    "type": "phrase",
-   "en": "Excuse me, could we order?",
+   "en": "Excuse me, can we order?",
    "he": "סליחה, אפשר להזמין?",
    "icon": "bell",
-   "exampleEn": "Excuse me, could we order?",
-   "exampleHe": "סליחה, אפשר להזמין?"
+   "exampleEn": "Excuse me, can we order now?",
+   "exampleHe": "סליחה, אפשר להזמין עכשיו?"
   },
   {
    "id": "u02-046",
@@ -636,8 +636,8 @@
     },
     {
      "speaker": "B",
-     "en": "You're welcome. Have a nice day!",
-     "he": "על לא דבר. יום נעים!"
+     "en": "Glad you liked it. Have a nice day!",
+     "he": "שמחה שנהנית. יום נעים!"
     }
    ]
   }

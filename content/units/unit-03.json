@@ -53,11 +53,11 @@
   {
    "id": "u03-006",
    "type": "phrase",
-   "en": "I wear a medium",
+   "en": "I'm a medium",
    "he": "אני במידה M",
    "icon": "bag",
-   "exampleEn": "I wear a medium in tops.",
-   "exampleHe": "אני במידה M בחולצות.",
+   "exampleEn": "I'm usually a medium.",
+   "exampleHe": "אני בדרך כלל במידה M.",
    "noteHe": "מידה: wear a medium, לא be a medium."
   },
   {
@@ -468,7 +468,7 @@
      "he": "כמה עולות הנעליים האלה?"
     },
     {
-     "en": "Can I try those jeans?",
+     "en": "Can I try on those jeans?",
      "he": "אפשר למדוד את הג'ינס ההם?"
     }
    ],
