@@ -181,3 +181,16 @@ input,textarea{-webkit-user-select:text;user-select:text}
 .sheet.dyn,.dialog.dyn{will-change:transform}
 
 .scrim{z-index:5}.sheet,.dialog{z-index:6}
+
+/* ===== Polish ===== */
+/* Never squash buttons/cards on short screens: the body scrolls instead. */
+.body>*:not(.sp1){flex-shrink:0}
+/* Flash card: answer controls sit at the bottom like every other screen. */
+#pre,#post{margin-top:auto}
+/* Feedback sheets keep their light colors in dark mode, so their text must stay dark. */
+.sheet.ok .sm,.sheet.no .sm,.sheet.ok .p,.sheet.no .p{color:#2b2525}
+.sheet.ok .en,.sheet.no .en{font-weight:800}
+/* Bigger tap area for the switch without changing its look. */
+.switch::before{content:"";position:absolute;inset:-9px -4px}
+/* Hide the desktop scrollbar; touch scrolling still works. */
+.body{scrollbar-width:none}.body::-webkit-scrollbar{display:none}

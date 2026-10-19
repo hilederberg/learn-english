@@ -61,7 +61,7 @@ export function checkBuild(ex, chosenIds) {
 export function makeListen(item, pool, rnd = Math.random) {
   const same = shuffle(pool.filter(p => p.id !== item.id && p.he !== item.he && p.unit === item.unit), rnd);
   const rest = shuffle(pool.filter(p => p.id !== item.id && p.he !== item.he && p.unit !== item.unit), rnd);
-  const distract = [...same, ...rest].slice(0, 3).map(p => p.he);
+  const distract = [...new Set([...same, ...rest].map(p => p.he))].slice(0, 3); // unique, so no two options read the same
   const options = shuffle([item.he, ...distract], rnd);
   return { options, correct: options.indexOf(item.he), en: item.en };
 }

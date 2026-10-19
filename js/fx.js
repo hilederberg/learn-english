@@ -49,7 +49,8 @@ function bars(f, base) {
 }
 function stagger(f, base) {
   const body = f.querySelector('.body'); if (!body) return;
-  Array.from(body.children).forEach((el, i) => A(el, [{ opacity: 0, transform: 'translateY(26px) scale(.975)' }, { opacity: 1, transform: 'none' }], { duration: 680, delay: base + Math.min(i, 8) * 80, easing: EASE }));
+  // Skip elements that start hidden (e.g. the "done recording" button), or the entrance animation would flash them.
+  Array.from(body.children).forEach((el, i) => el.style.opacity !== '0' && A(el, [{ opacity: 0, transform: 'translateY(26px) scale(.975)' }, { opacity: 1, transform: 'none' }], { duration: 680, delay: base + Math.min(i, 8) * 80, easing: EASE }));
   f.querySelectorAll('.list > *').forEach((el, i) => A(el, [{ opacity: 0, transform: 'translateY(22px)' }, { opacity: 1, transform: 'none' }], { duration: 640, delay: base + 260 + Math.min(i, 12) * 70, easing: EASE }));
   f.querySelectorAll('.card.center > *').forEach((el, i) => A(el, [{ opacity: 0, transform: 'translateY(14px) scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 620, delay: base + 280 + i * 100, easing: SPRING }));
   f.querySelectorAll('.rate > div').forEach((el, i) => A(el, [{ opacity: 0, transform: 'translateY(18px) scale(.9)' }, { opacity: 1, transform: 'none' }], { duration: 640, delay: base + 620 + i * 90, easing: SPRING }));
@@ -152,6 +153,13 @@ export async function go(name, html, mode = 'push', opts = {}) {
   }
   cur = { name, el };
   if (mode !== 'none') enterFx(el, name, mode, opts); else { drawRing(el, 0); }
+  // Tab to tab with a sliding transition (swipe): keep the tab bar still while the screens slide under it.
+  const nb = el.querySelector('.nav'), pb = prev && prev.querySelector('.nav');
+  if (nb && pb && (mode === 'push' || mode === 'back')) {
+    nb.getAnimations().forEach(a => a.cancel()); pb.style.visibility = 'hidden';
+    const W = root.clientWidth, off = mode === 'push' ? 100 * s * W / 100 : -26 * s * W / 100;
+    anims.push(A(nb, [{ transform: `translateX(${off}px)` }, { transform: 'none' }], opt(680)));
+  }
   const dur = RM() ? 30 : (MODE_MS[mode] ?? 30);
   await new Promise(r => setTimeout(r, dur + 40));
   anims.forEach(a => { try { a.cancel(); } catch {} });

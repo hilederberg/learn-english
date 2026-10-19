@@ -123,7 +123,7 @@ function requeue(id) {
 async function bumpLog(field) { const k = today(); S.log[k] = { new: 0, reviews: 0, ...(S.log[k] || {}) }; S.log[k][field] = (S.log[k][field] || 0) + 1; await save.log(); }
 
 async function renderStep(mode = 'next') {
-  const s = S.session, st = s.steps[s.idx]; S.ui.stepStart = Date.now(); S.ui.audio++; S.ui.ex = null; S.ui.blob = null;
+  const s = S.session, st = s.steps[s.idx]; S.ui.stepStart = Date.now(); S.ui.audio++; S.ui.ex = null; S.ui.blob = null; S.ui.fb = null;
   const n = s.idx + 1, total = totalSteps(), it = st.id ? stepItem(st) : null, aud = S.ui.audio;
   let el;
   const say = (text, delay = 500) => setTimeout(() => { if (S.ui.audio === aud) speak(text, { pref: S.settings.rate }); }, delay);
@@ -209,7 +209,8 @@ async function onCheck() {
     if (!ok) requeue(ex.it.id);
   }
   const shakeEl = ex.kind === 'listen' && !ok ? f().querySelectorAll('.opt')[ex.sel] : ex.kind === 'build' && !ok ? $('#slot') : null;
-  openSheet(UI.feedback(ok, { en: answer, close, note }), { shake: shakeEl });
+  S.ui.fb = UI.feedback(ok, { en: answer, close, note }); // kept so the exit dialog can restore it
+  openSheet(S.ui.fb, { shake: shakeEl });
   if (ex.kind !== 'listen') speak(answer, { pref: S.settings.rate });
 }
 
@@ -350,7 +351,7 @@ async function act(a, el) {
       return void speak(el.dataset.t, { slow, pref: S.settings.rate, pitch: p });
     }
     case 'exit': return void openSheet(UI.exitDialog());
-    case 'exitNo': return closeSheet();
+    case 'exitNo': await closeSheet(); if (S.ui.fb && S.ui.ex?.done) openSheet(S.ui.fb); return;
     case 'exitYes': { cancelRec(); stopSpeaking(); if (S.session) { S.session.ms += Math.min(60000, Date.now() - (S.ui.stepStart || Date.now())); await save.session(); if (S.session.kind === 'practice') { S.session = null; await db.del('session'); } } return nav('home', 'back'); }
     case 'closeSheet': return closeSheet();
     case 'mic': return onMic();
@@ -411,11 +412,40 @@ $app.addEventListener('click', async e => {
   if (!passthrough.includes(a)) busyAct = true;
   try { await act(a, el); } catch (err) { console.error(err); } finally { busyAct = false; }
 });
+// ----- swipe navigation (iOS style, RTL) -----------------------------------------------------------------------------
+// Tabs: finger right = next tab, finger left = previous. Inner screens: finger left = back (or right from the left edge).
+// No swipes inside a session, so an exercise is never left by accident.
+const TABS = ['home', 'units', 'dialogs', 'settings'];
+let touch = null;
+$app.addEventListener('touchstart', e => {
+  touch = e.touches.length === 1 && !e.target.closest('input,textarea,.seg,.switch') ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
+}, { passive: true });
+$app.addEventListener('touchend', async e => {
+  if (!touch) return;
+  const p = e.changedTouches[0], dx = p.clientX - touch.x, dy = p.clientY - touch.y, fromEdge = touch.x < 32, dt = Date.now() - touch.t; touch = null;
+  if (Math.abs(dx) < 60 || Math.abs(dx) < 1.6 * Math.abs(dy) || dt > 800) return;
+  const cur = current(); if (!cur || isBusy() || busyAct || cur.el.querySelector('.dyn')) return;
+  const tab = TABS.indexOf(cur.name);
+  if (tab >= 0) {
+    const to = TABS[tab + (dx > 0 ? 1 : -1)]; if (!to) return;
+    busyAct = true; try { await nav(to, dx > 0 ? 'push' : 'back'); } finally { busyAct = false; }
+    return;
+  }
+  if (OB.includes(cur.name) && dx > 0) { cur.el.querySelector('.btn[data-a="ob"]')?.click(); return; } // onboarding: forward
+  if (dx < 0 || fromEdge) cur.el.querySelector('.body > .row:first-child > .close.flip[data-a]')?.click(); // the screen's own back button
+}, { passive: true });
+
 $app.addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) { onImportFile(e.target.files[0]); e.target.value = ''; } });
 $app.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'fillIn') { e.preventDefault(); onCheck(); } });
 $app.addEventListener('input', e => { if (e.target.id === 'fillIn') $('#chk').classList.toggle('off', !e.target.value.trim()); });
 addEventListener('online', () => { S.offline = false; refreshHomeBanner(); });
 addEventListener('offline', () => { S.offline = true; refreshHomeBanner(); });
+// Reopened from the background on a new day: reload so greeting, streak and today's plan are fresh.
+let bootDay = null;
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible' || !bootDay || today() === bootDay || isBusy()) return;
+  if (current() && ['home', 'units', 'dialogs', 'settings'].includes(current().name)) location.reload();
+});
 function refreshHomeBanner() { if (current() && current().name === 'home' && !isBusy()) { const [n, html] = view('home'); go(n, html, 'swap'); } }
 
 // ----- boot ----------------------------------------------------------------------------------------------------------------------------
@@ -427,7 +457,7 @@ async function boot() {
   } catch (e) {
     console.error(e); await go('error', UI.loadError(), 'swap'); return;
   }
-  applyTheme();
+  applyTheme(); bootDay = today();
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
   if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js').catch(() => {});
   const short = S.meta.lastSplash === today();
