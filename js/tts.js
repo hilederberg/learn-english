@@ -1,5 +1,12 @@
-// Text-to-speech via the browser's speechSynthesis (en-US), plus mic recording via MediaRecorder.
+// Speech: pre-recorded natural clips (audio/, made by tools/make-audio.py) with the browser's speechSynthesis
+// as a fallback for any text without a clip. Plus mic recording via MediaRecorder.
 let voice = null, unlocked = false;
+let clips = {};                                                   // "f|text" -> file, from audio/index.json
+const player = typeof Audio !== 'undefined' ? new Audio() : null; // one element, unlocked once on a tap (iOS)
+let stopClip = null;
+const clean = t => String(t).replace(/\s+/g, ' ').trim();
+export async function loadClips(base = './') { try { clips = await (await fetch(base + 'audio/index.json')).json(); } catch { clips = {}; } }
+const clipFor = (text, v) => clips[`${v}|${clean(text)}`] || clips[`f|${clean(text)}`];
 const supported = typeof speechSynthesis !== 'undefined';
 export const ttsSupported = supported;
 
@@ -22,12 +29,42 @@ function pickVoice() {
 if (supported) { speechSynthesis.onvoiceschanged = () => { voice = pickVoice(); }; voice = pickVoice(); }
 
 export function unlockTTS() { // must be called from a user gesture once (iOS)
-  if (!supported || unlocked) return; unlocked = true;
-  try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) { /* ignore */ }
+  if (unlocked) return; unlocked = true;
+  if (player) { // a muted play inside the tap lets later, timer-driven plays of this element through on iOS
+    const f = Object.values(clips)[0];
+    if (f) { player.muted = true; player.src = 'audio/' + f; player.play().then(() => { if (player.muted) { player.pause(); player.muted = false; } }).catch(() => { player.muted = false; }); } // a real clip may already have taken over
+  }
+  if (supported) try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) { /* ignore */ }
 }
-export function stopSpeaking() { if (supported) try { speechSynthesis.cancel(); } catch (e) { /* ignore */ } }
-// rate: 'normal' | 'slow'; resolves when finished (or immediately if unsupported)
-export function speak(text, { slow = false, pref = 'normal', pitch = 1 } = {}) {
+export function stopSpeaking() {
+  if (stopClip) stopClip();
+  if (supported) try { speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+}
+function playClip(file, rate) {
+  return new Promise(resolve => {
+    let done = false;
+    const fin = ok => { if (done) return; done = true; stopClip = null; player.onended = player.onerror = null; resolve(ok); };
+    stopClip = () => { try { player.pause(); } catch { /* */ } fin(true); };
+    player.muted = false; player.src = 'audio/' + file;
+    player.preservesPitch = player.webkitPreservesPitch = true; // slower, not deeper
+    player.defaultPlaybackRate = player.playbackRate = rate;
+    player.onended = () => fin(true); player.onerror = () => fin(false);
+    player.play().catch(() => fin(false));
+    setTimeout(() => fin(true), 20000);
+  });
+}
+// rate: 'normal' | 'slow'; voice: 'f' (main) | 'm' (male dialogue speaker). Resolves when finished.
+export async function speak(text, { slow = false, pref = 'normal', pitch = 1, voice: v = 'f' } = {}) {
+  if (!text) return false;
+  const file = player && clipFor(text, v);
+  if (file) {
+    if (stopClip) stopClip();
+    if (supported) try { speechSynthesis.cancel(); } catch { /* */ }
+    if (await playClip(file, slow ? 0.72 : pref === 'slow' ? 0.85 : 1)) return true;
+  }
+  return synth(text, { slow, pref, pitch: v === 'm' ? 0.9 : pitch });
+}
+function synth(text, { slow, pref, pitch }) {
   return new Promise(resolve => {
     if (!supported || !text) return resolve(false);
     try {

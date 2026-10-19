@@ -177,3 +177,21 @@ test('grammar practice session and words-known counter', () => {
   assert.equal(wordsKnown(cards), 1);
   assert.equal(fmtInterval(0), 'עוד היום'); assert.equal(fmtInterval(1), 'מחר'); assert.equal(fmtInterval(3), '3 ימים');
 });
+
+test('every spoken sentence has a natural-voice recording (run tools/make-audio.py after content changes)', () => {
+  const index = JSON.parse(readFileSync(new URL('../audio/index.json', import.meta.url)));
+  const clean = t => t.replace(/\s+/g, ' ').trim();
+  const need = [['f', 'Hello, nice to meet you.']];
+  for (const u of meta.units.filter(u => u.open)) {
+    const d = load(u.id);
+    d.items.forEach(it => need.push(['f', it.en]));
+    (d.grammar || []).forEach(g => {
+      g.examples.forEach(e => need.push(['f', e.en]));
+      g.drills.forEach(dr => need.push(['f', dr.type === 'fill' ? dr.text.replace(/_+/, dr.answer) : dr.answer]));
+    });
+    (d.dialogues || []).forEach(dl => dl.lines.forEach(l => need.push([l.speaker === 'A' ? 'm' : 'f', l.en])));
+  }
+  const missing = need.filter(([v, t]) => !index[`${v}|${clean(t)}`]).map(([v, t]) => `${v}|${t}`);
+  assert.deepEqual(missing, []);
+  for (const f of new Set(Object.values(index))) assert.ok(readFileSync(new URL(`../audio/${f}`, import.meta.url)).length > 1000, f);
+});

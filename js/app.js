@@ -5,7 +5,7 @@ import { newCard, review, preview } from './fsrs.js';
 import { dayKey, fmtInterval, lenientMatch, shuffle } from './util.js';
 import * as E from './engine.js';
 import { buildBackup, validateBackup, backupFileName } from './backup.js';
-import { speak, stopSpeaking, unlockTTS, startRecording, playBlob } from './tts.js';
+import { speak, stopSpeaking, unlockTTS, startRecording, playBlob, loadClips } from './tts.js';
 import * as UI from './screens.js';
 import { initFx, go, dragStart, current, isBusy, openSheet, closeSheet, press, pop, A, EASE, SPRING, SOFT, idleHint, resetBars, cancelTimers } from './fx.js';
 
@@ -347,8 +347,8 @@ async function act(a, el) {
       return advance('next');
     }
     case 'say': {
-      pop(el); const slow = !!el.dataset.slow, p = el.dataset.p ? +el.dataset.p : 1;
-      return void speak(el.dataset.t, { slow, pref: S.settings.rate, pitch: p });
+      pop(el); const slow = !!el.dataset.slow;
+      return void speak(el.dataset.t, { slow, pref: S.settings.rate, voice: el.dataset.voice || 'f' });
     }
     case 'exit': return void openSheet(UI.exitDialog());
     case 'exitNo': await closeSheet(); if (S.ui.fb && S.ui.ex?.done) openSheet(S.ui.fb); return;
@@ -381,7 +381,7 @@ async function act(a, el) {
       const aud = ++S.ui.audio, lines = [...f().querySelectorAll('.bubble-msg')], slow = !!el.dataset.slow;
       for (const b of lines) {
         if (S.ui.audio !== aud) return; pop(b); b.style.outline = '3px solid var(--yellow)';
-        await speak(b.dataset.t, { slow, pref: S.settings.rate, pitch: +b.dataset.p || 1 }); b.style.outline = '';
+        await speak(b.dataset.t, { slow, pref: S.settings.rate, voice: b.dataset.voice || 'f' }); b.style.outline = '';
         await new Promise(r => setTimeout(r, 350));
       }
       return;
@@ -481,7 +481,7 @@ function refreshHomeBanner() { if (current() && current().name === 'home' && !is
 async function boot() {
   initFx($app);
   try {
-    S.content = await loadContent('./');
+    [S.content] = await Promise.all([loadContent('./'), loadClips('./')]);
     await loadState();
   } catch (e) {
     console.error(e); await go('error', UI.loadError(), 'swap'); return;
