@@ -5,11 +5,11 @@ import { newCard, review, preview } from './fsrs.js';
 import { dayKey, fmtInterval, lenientMatch, shuffle } from './util.js';
 import * as E from './engine.js';
 import { buildBackup, validateBackup, backupFileName } from './backup.js';
-import { speak, stopSpeaking, unlockTTS, startRecording, playBlob, loadClips } from './tts.js';
+import { speak, stopSpeaking, unlockTTS, startRecording, playBlob, loadClips, lastEngine } from './tts.js';
 import * as UI from './screens.js';
 import { initFx, go, dragStart, current, isBusy, openSheet, closeSheet, press, pop, A, EASE, SPRING, SOFT, idleHint, resetBars, cancelTimers } from './fx.js';
 
-const VERSION = '1.0';
+const VERSION = '1.1';
 const $app = document.getElementById('app');
 const S = {
   content: null, cards: new Map(), settings: { minutes: 20, rate: 'normal', restDay: true, theme: 'auto', goals: [] },
@@ -75,14 +75,14 @@ function view(name) {
       const list = c.units.flatMap((u, i) => u.dialogues.map(d => ({ ...d, color: u.color, icon: u.icon, n: i + 1 })));
       return ['dialogs', UI.dialogsTab(list)];
     }
-    case 'settings': return ['settings', UI.settings({ ...S.settings, version: VERSION })];
+    case 'settings': return ['settings', UI.settings({ ...S.settings, version: VERSION, engine: lastEngine() })];
     case 'backup': return ['backup', UI.backupScreen(S.meta.lastBackup ? new Date(S.meta.lastBackup).toLocaleDateString('he-IL') : '')];
     default: return ['home', UI.home(homeData())];
   }
 }
 async function nav(name, mode = 'push') {
   stopSpeaking(); S.ui.audio++; cancelRec(); S.preview = name === 'home' ? null : S.preview;
-  const [n, html] = view(name); const el = await go(n, html, mode); idleHint(el); return el;
+  const [n, html] = view(name); const el = await go(n, html, mode); idleHint(el); maybeUpdate(); return el;
 }
 
 // ----- sessions ------------------------------------------------------------------------------------------------------
@@ -399,6 +399,7 @@ async function act(a, el) {
     case 'reset': return void openSheet(UI.confirmDialog('reset'));
     case 'doReset': { cancelRec(); await db.clearAll(); location.reload(); return; }
     case 'reload': return location.reload();
+    case 'voiceTest': { await speak('Hello, nice to meet you.', { pref: S.settings.rate }); const t = $('#vt'); if (t) t.textContent = UI.voiceLabel(lastEngine()); return; }
   }
 }
 
@@ -475,6 +476,7 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState !== 'visible' || !bootDay || today() === bootDay || isBusy()) return;
   if (current() && ['home', 'units', 'dialogs', 'settings'].includes(current().name)) location.reload();
 });
+function maybeUpdate() { if (S.updateReady && !isBusy() && current() && ['home', 'units', 'dialogs', 'settings'].includes(current().name)) location.reload(); }
 function refreshHomeBanner() { if (current() && current().name === 'home' && !isBusy()) { const [n, html] = view('home'); go(n, html, 'swap'); } }
 
 // ----- boot ----------------------------------------------------------------------------------------------------------------------------
@@ -488,7 +490,12 @@ async function boot() {
   }
   applyTheme(); bootDay = today();
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
-  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    // A new version took over in the background: reload at the next calm moment (a tab screen), so the update shows without reopening.
+    const had = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (had) { S.updateReady = true; maybeUpdate(); } });
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
   const short = S.meta.lastSplash === today();
   await go('splash', UI.splash(short), 'swap', { short });
   S.meta.lastSplash = today(); save.meta();

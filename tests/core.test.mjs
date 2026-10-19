@@ -191,7 +191,7 @@ test('every spoken sentence has a natural-voice recording (run tools/make-audio.
     });
     (d.dialogues || []).forEach(dl => dl.lines.forEach(l => need.push([l.speaker === 'A' ? 'm' : 'f', l.en])));
   }
-  const missing = need.filter(([v, t]) => !index[`${v}|${clean(t)}`]).map(([v, t]) => `${v}|${t}`);
+  const missing = need.flatMap(([v, t]) => ['', 's'].map(r => `${v}${r}|${clean(t)}`)).filter(k => !index[k]); // normal + slow recording
   assert.deepEqual(missing, []);
   for (const f of new Set(Object.values(index))) assert.ok(readFileSync(new URL(`../audio/${f}`, import.meta.url)).length > 1000, f);
 });

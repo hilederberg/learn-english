@@ -1,7 +1,7 @@
 """Pre-records every English sentence the app speaks, so playback sounds natural on any phone.
 
 Run after changing content:  python tools/make-audio.py   (needs: pip install edge-tts)
-Writes audio/<hash>.mp3 and audio/index.json ({"f|text": "file.mp3"}). Existing clips are kept,
+Writes audio/<hash>.mp3 and audio/index.json ({"f|text": "file.mp3", "fs|text": slow version}). Existing clips are kept,
 clips no longer used are deleted. Then run npm run sw. Keep the text list in sync with
 spokenTexts() in tests/core.test.mjs and the speak() calls in js/app.js.
 """
@@ -12,6 +12,7 @@ import edge_tts
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'audio'
 VOICES = {'f': 'en-US-AvaNeural', 'm': 'en-US-AndrewNeural'}  # f: main voice, m: speaker A in dialogues
+RATES = {'': '-5%', 's': '-30%'}  # normal, and a separate slow recording (slowing a clip down sounds worse)
 
 
 def clean(t):
@@ -39,15 +40,15 @@ def spoken_texts():
     return sorted((v, clean(t)) for v, t in out if clean(t))
 
 
-def name_for(v, t):
-    return hashlib.sha1(f'{VOICES[v]}|{t}'.encode()).hexdigest()[:12] + '.mp3'
+def name_for(v, r, t):
+    return hashlib.sha1(f'{VOICES[v]}|{RATES[r]}|{t}'.encode()).hexdigest()[:12] + '.mp3'
 
 
-async def record(v, t, path, sem):
+async def record(v, r, t, path, sem):
     async with sem:
         for attempt in range(4):
             try:
-                await edge_tts.Communicate(t, VOICES[v], rate='-5%').save(str(path))
+                await edge_tts.Communicate(t, VOICES[v], rate=RATES[r]).save(str(path))
                 if path.stat().st_size > 1000:
                     return
             except Exception as e:  # network hiccup: retry
@@ -59,11 +60,12 @@ async def record(v, t, path, sem):
 async def main():
     OUT.mkdir(exist_ok=True)
     texts = spoken_texts()
-    index = {f'{v}|{t}': name_for(v, t) for v, t in texts}
-    todo = [(v, t, OUT / index[f'{v}|{t}']) for v, t in texts if not (OUT / index[f'{v}|{t}']).exists()]
-    print(f'{len(texts)} clips, {len(todo)} to record')
+    jobs = [(v, r, t) for v, t in texts for r in RATES]
+    index = {f'{v}{r}|{t}': name_for(v, r, t) for v, r, t in jobs}
+    todo = [(v, r, t, OUT / index[f'{v}{r}|{t}']) for v, r, t in jobs if not (OUT / index[f'{v}{r}|{t}']).exists()]
+    print(f'{len(jobs)} clips, {len(todo)} to record')
     sem = asyncio.Semaphore(6)
-    await asyncio.gather(*(record(v, t, p, sem) for v, t, p in todo))
+    await asyncio.gather(*(record(v, r, t, p, sem) for v, r, t, p in todo))
     keep = set(index.values())
     for f in OUT.glob('*.mp3'):
         if f.name not in keep:

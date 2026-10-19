@@ -1,12 +1,15 @@
-// Speech: pre-recorded natural clips (audio/, made by tools/make-audio.py) with the browser's speechSynthesis
-// as a fallback for any text without a clip. Plus mic recording via MediaRecorder.
-let voice = null, unlocked = false;
-let clips = {};                                                   // "f|text" -> file, from audio/index.json
-const player = typeof Audio !== 'undefined' ? new Audio() : null; // one element, unlocked once on a tap (iOS)
-let stopClip = null;
+// Speech: pre-recorded natural clips (audio/, made by tools/make-audio.py) played through Web Audio, with the
+// browser's speechSynthesis only as a last resort for text without a clip. Plus mic recording via MediaRecorder.
+// Why Web Audio: on iOS an <audio> element fed by the service worker fails (no Range support) and is blocked from
+// timer-driven playback; an AudioContext resumed once in a tap plays freely afterwards, from fetched bytes.
+let voice = null;
+let clips = {};                       // "f|text" / "fs|text" (slow) / "m|..." -> file, from audio/index.json
+let ctx = null, stopClip = null, seq = 0, engine = '';
+const buffers = new Map();
 const clean = t => String(t).replace(/\s+/g, ' ').trim();
 export async function loadClips(base = './') { try { clips = await (await fetch(base + 'audio/index.json')).json(); } catch { clips = {}; } }
-const clipFor = (text, v) => clips[`${v}|${clean(text)}`] || clips[`f|${clean(text)}`];
+const clipFor = (text, v, slow) => { const t = clean(text), r = slow ? 's' : ''; return clips[`${v}${r}|${t}`] || clips[`f${r}|${t}`] || clips[`${v}|${t}`] || clips[`f|${t}`]; };
+export const lastEngine = () => engine;   // 'clip' | 'synth' | '' (for the settings screen)
 const supported = typeof speechSynthesis !== 'undefined';
 export const ttsSupported = supported;
 
@@ -28,40 +31,59 @@ function pickVoice() {
 }
 if (supported) { speechSynthesis.onvoiceschanged = () => { voice = pickVoice(); }; voice = pickVoice(); }
 
-export function unlockTTS() { // must be called from a user gesture once (iOS)
-  if (unlocked) return; unlocked = true;
-  if (player) { // a muted play inside the tap lets later, timer-driven plays of this element through on iOS
-    const f = Object.values(clips)[0];
-    if (f) { player.muted = true; player.src = 'audio/' + f; player.play().then(() => { if (player.muted) { player.pause(); player.muted = false; } }).catch(() => { player.muted = false; }); } // a real clip may already have taken over
+function audioCtx() {
+  if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) try { ctx = new C(); } catch { ctx = null; } }
+  return ctx;
+}
+export function unlockTTS() { // call from every tap: cheap once running; iOS may suspend the context again later
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch { /* iOS 16.4+: play even with the silent switch on */ }
+  const c = audioCtx();
+  if (c && c.state !== 'running') {
+    try { c.resume(); const b = c.createBuffer(1, 1, 22050), src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(0); } catch { /* */ }
   }
-  if (supported) try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) { /* ignore */ }
+  if (supported && !unlockTTS.synthDone) { unlockTTS.synthDone = true; try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch { /* */ } }
 }
 export function stopSpeaking() {
+  seq++;
   if (stopClip) stopClip();
-  if (supported) try { speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+  if (supported) try { speechSynthesis.cancel(); } catch { /* */ }
 }
-function playClip(file, rate) {
+function decode(ab) { return new Promise((res, rej) => { try { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); } catch (e) { rej(e); } }); }
+function bufferFor(file) {
+  if (!buffers.has(file)) {
+    const p = fetch('audio/' + file).then(r => { if (!r.ok) throw new Error('fetch ' + r.status); return r.arrayBuffer(); }).then(decode);
+    p.catch(() => buffers.delete(file)); buffers.set(file, p);
+  }
+  return buffers.get(file);
+}
+export function preloadClips(texts) { const c = audioCtx(); if (!c) return; texts.forEach(t => { const f = t && clipFor(t, 'f', false); if (f) bufferFor(f).catch(() => {}); }); }
+async function playClip(file, my) {
+  const c = audioCtx(); if (!c) return false;
+  if (c.state !== 'running') { try { await c.resume(); } catch { /* */ } }
+  if (c.state !== 'running') return false;
+  let buf; try { buf = await bufferFor(file); } catch { return false; }
+  if (my !== seq) return true; // something else started speaking meanwhile
   return new Promise(resolve => {
-    let done = false;
-    const fin = ok => { if (done) return; done = true; stopClip = null; player.onended = player.onerror = null; resolve(ok); };
-    stopClip = () => { try { player.pause(); } catch { /* */ } fin(true); };
-    player.muted = false; player.src = 'audio/' + file;
-    player.preservesPitch = player.webkitPreservesPitch = true; // slower, not deeper
-    player.defaultPlaybackRate = player.playbackRate = rate;
-    player.onended = () => fin(true); player.onerror = () => fin(false);
-    player.play().catch(() => fin(false));
-    setTimeout(() => fin(true), 20000);
+    const src = c.createBufferSource(); src.buffer = buf; src.connect(c.destination);
+    let done = false; const fin = ok => { if (done) return; done = true; if (stopClip === stop) stopClip = null; resolve(ok); };
+    const stop = () => { try { src.stop(); } catch { /* */ } fin(true); };
+    if (stopClip) stopClip(); stopClip = stop;
+    src.onended = () => fin(true);
+    try { src.start(0); } catch { fin(false); return; }
+    setTimeout(() => fin(true), buf.duration * 1000 + 1500);
   });
 }
-// rate: 'normal' | 'slow'; voice: 'f' (main) | 'm' (male dialogue speaker). Resolves when finished.
+// slow: the turtle button; pref 'slow': the reading-speed setting. voice: 'f' (main) | 'm' (male dialogue speaker).
 export async function speak(text, { slow = false, pref = 'normal', pitch = 1, voice: v = 'f' } = {}) {
   if (!text) return false;
-  const file = player && clipFor(text, v);
-  if (file) {
-    if (stopClip) stopClip();
-    if (supported) try { speechSynthesis.cancel(); } catch { /* */ }
-    if (await playClip(file, slow ? 0.72 : pref === 'slow' ? 0.85 : 1)) return true;
-  }
+  const my = ++seq;
+  if (stopClip) stopClip();
+  if (supported) try { speechSynthesis.cancel(); } catch { /* */ }
+  const file = clipFor(text, v, slow || pref === 'slow');
+  if (file && await playClip(file, my)) { engine = 'clip'; return true; }
+  if (my !== seq) return false;
+  if (file && audioCtx()) { engine = 'blocked'; return false; } // has a natural clip: stay quiet rather than sound robotic
+  engine = 'synth';
   return synth(text, { slow, pref, pitch: v === 'm' ? 0.9 : pitch });
 }
 function synth(text, { slow, pref, pitch }) {
