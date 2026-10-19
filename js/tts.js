@@ -4,7 +4,8 @@
 // timer-driven playback; an AudioContext resumed once in a tap plays freely afterwards, from fetched bytes.
 let voice = null;
 let clips = {};                       // "f|text" / "fs|text" (slow) / "m|..." -> file, from audio/index.json
-let ctx = null, stopClip = null, seq = 0, engine = '';
+let ctx = null, stopClip = null, seq = 0, engine = '', recording = false;
+const setSession = t => { try { if (navigator.audioSession && navigator.audioSession.type !== t) navigator.audioSession.type = t; } catch { /* */ } };
 const buffers = new Map();
 const clean = t => String(t).replace(/\s+/g, ' ').trim();
 export async function loadClips(base = './') { try { clips = await (await fetch(base + 'audio/index.json')).json(); } catch { clips = {}; } }
@@ -36,7 +37,7 @@ function audioCtx() {
   return ctx;
 }
 export function unlockTTS() { // call from every tap: cheap once running; iOS may suspend the context again later
-  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch { /* iOS 16.4+: play even with the silent switch on */ }
+  if (!recording) setSession('playback'); // iOS 16.4+: play even with the silent switch on
   const c = audioCtx();
   if (c && c.state !== 'running') {
     try { c.resume(); const b = c.createBuffer(1, 1, 22050), src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(0); } catch { /* */ }
@@ -104,7 +105,10 @@ function synth(text, { slow, pref, pitch }) {
 // ---- recording --------------------------------------------------------------------------------
 export async function startRecording() {
   if (!navigator.mediaDevices || !window.MediaRecorder) throw Object.assign(new Error('unsupported'), { name: 'NotSupportedError' });
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  recording = true; setSession('play-and-record'); // 'playback' alone can block the microphone on iOS
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { recording = false; setSession('playback'); throw e; }
+  const done = () => { recording = false; setSession('playback'); };
   const types = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'];
   const mime = types.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t));
   const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
@@ -113,11 +117,11 @@ export async function startRecording() {
   return {
     stop() {
       return new Promise(res => {
-        rec.onstop = () => { stream.getTracks().forEach(t => t.stop()); res(new Blob(chunks, { type: rec.mimeType || mime || 'audio/mp4' })); };
-        try { rec.stop(); } catch (e) { stream.getTracks().forEach(t => t.stop()); res(new Blob(chunks)); }
+        rec.onstop = () => { stream.getTracks().forEach(t => t.stop()); done(); res(new Blob(chunks, { type: rec.mimeType || mime || 'audio/mp4' })); };
+        try { rec.stop(); } catch (e) { stream.getTracks().forEach(t => t.stop()); done(); res(new Blob(chunks)); }
       });
     },
-    cancel() { try { rec.stop(); } catch (e) { /* */ } stream.getTracks().forEach(t => t.stop()); },
+    cancel() { try { rec.stop(); } catch (e) { /* */ } stream.getTracks().forEach(t => t.stop()); done(); },
   };
 }
 export function playBlob(blob) {
