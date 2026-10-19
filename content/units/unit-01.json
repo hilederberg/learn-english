@@ -1,0 +1,621 @@
+{
+ "id": "unit-01",
+ "titleHe": "היכרות",
+ "icon": "user",
+ "color": "#b8cdee",
+ "items": [
+  {
+   "id": "u01-001",
+   "type": "phrase",
+   "en": "Hi!",
+   "he": "היי!",
+   "icon": "chat",
+   "exampleEn": "Hi! I'm Noa.",
+   "exampleHe": "היי! אני נועה."
+  },
+  {
+   "id": "u01-002",
+   "type": "phrase",
+   "en": "Hello",
+   "he": "שלום",
+   "icon": "chat",
+   "exampleEn": "Hello, nice to meet you.",
+   "exampleHe": "שלום, נעים להכיר."
+  },
+  {
+   "id": "u01-003",
+   "type": "phrase",
+   "en": "Good morning",
+   "he": "בוקר טוב",
+   "icon": "star",
+   "exampleEn": "Good morning! How are you?",
+   "exampleHe": "בוקר טוב! מה שלומך?"
+  },
+  {
+   "id": "u01-004",
+   "type": "phrase",
+   "en": "Good evening",
+   "he": "ערב טוב",
+   "icon": "star",
+   "exampleEn": "Good evening, everyone.",
+   "exampleHe": "ערב טוב לכולם."
+  },
+  {
+   "id": "u01-005",
+   "type": "phrase",
+   "en": "Goodbye",
+   "he": "להתראות",
+   "icon": "home",
+   "exampleEn": "Goodbye! See you tomorrow.",
+   "exampleHe": "להתראות! נתראה מחר."
+  },
+  {
+   "id": "u01-006",
+   "type": "phrase",
+   "en": "See you later",
+   "he": "נתראה אחר כך",
+   "icon": "home",
+   "exampleEn": "Bye! See you later.",
+   "exampleHe": "ביי! נתראה אחר כך."
+  },
+  {
+   "id": "u01-007",
+   "type": "phrase",
+   "en": "Nice to meet you",
+   "he": "נעים להכיר",
+   "icon": "user",
+   "exampleEn": "Hi, I'm Noa. Nice to meet you!",
+   "exampleHe": "היי, אני נועה. נעים להכיר!",
+   "noteHe": "עונים: Nice to meet you too."
+  },
+  {
+   "id": "u01-008",
+   "type": "phrase",
+   "en": "Nice to meet you too",
+   "he": "גם לי נעים להכיר",
+   "icon": "user",
+   "exampleEn": "Nice to meet you too, Dan.",
+   "exampleHe": "גם לי נעים להכיר, דן."
+  },
+  {
+   "id": "u01-009",
+   "type": "phrase",
+   "en": "How are you?",
+   "he": "מה שלומך?",
+   "icon": "chat",
+   "exampleEn": "Hi Dan! How are you?",
+   "exampleHe": "היי דן! מה שלומך?",
+   "noteHe": "בשאלה הזו בדרך כלל עונים קצר, לא מספרים הכל."
+  },
+  {
+   "id": "u01-010",
+   "type": "phrase",
+   "en": "I'm fine, thank you",
+   "he": "אני בסדר, תודה",
+   "icon": "check",
+   "exampleEn": "I'm fine, thank you. And you?",
+   "exampleHe": "אני בסדר, תודה. ומה איתך?"
+  },
+  {
+   "id": "u01-011",
+   "type": "phrase",
+   "en": "And you?",
+   "he": "ומה איתך?",
+   "icon": "chat",
+   "exampleEn": "I'm good. And you?",
+   "exampleHe": "אני בסדר. ומה איתך?"
+  },
+  {
+   "id": "u01-012",
+   "type": "phrase",
+   "en": "Not bad",
+   "he": "לא רע",
+   "icon": "check",
+   "exampleEn": "Not bad, thanks!",
+   "exampleHe": "לא רע, תודה!"
+  },
+  {
+   "id": "u01-013",
+   "type": "phrase",
+   "en": "Thank you",
+   "he": "תודה",
+   "icon": "star",
+   "exampleEn": "Thank you very much.",
+   "exampleHe": "תודה רבה."
+  },
+  {
+   "id": "u01-014",
+   "type": "phrase",
+   "en": "You're welcome",
+   "he": "על לא דבר",
+   "icon": "star",
+   "exampleEn": "Thanks! - You're welcome.",
+   "exampleHe": "תודה! - על לא דבר."
+  },
+  {
+   "id": "u01-015",
+   "type": "phrase",
+   "en": "Please",
+   "he": "בבקשה (כשמבקשים)",
+   "icon": "pencil",
+   "exampleEn": "A coffee, please.",
+   "exampleHe": "קפה, בבקשה.",
+   "noteHe": "Please משמשת כשמבקשים משהו. כשנותנים משהו אומרים Here you go."
+  },
+  {
+   "id": "u01-016",
+   "type": "phrase",
+   "en": "Sorry",
+   "he": "סליחה / מצטערת",
+   "icon": "bell",
+   "exampleEn": "Sorry, I'm late.",
+   "exampleHe": "סליחה, איחרתי.",
+   "noteHe": "Sorry אחרי טעות. כדי לפנות למישהו אומרים Excuse me."
+  },
+  {
+   "id": "u01-017",
+   "type": "phrase",
+   "en": "Excuse me",
+   "he": "סליחה (כדי לפנות למישהו)",
+   "icon": "chat",
+   "exampleEn": "Excuse me, where is the bathroom?",
+   "exampleHe": "סליחה, איפה השירותים?"
+  },
+  {
+   "id": "u01-018",
+   "type": "phrase",
+   "en": "My name is Noa",
+   "he": "קוראים לי נועה",
+   "icon": "user",
+   "exampleEn": "Hi, my name is Noa.",
+   "exampleHe": "היי, קוראים לי נועה.",
+   "noteHe": "אפשר גם I'm Noa."
+  },
+  {
+   "id": "u01-019",
+   "type": "phrase",
+   "en": "I'm Noa",
+   "he": "אני נועה",
+   "icon": "user",
+   "exampleEn": "Hi, I'm Noa. What's your name?",
+   "exampleHe": "היי, אני נועה. איך קוראים לך?"
+  },
+  {
+   "id": "u01-020",
+   "type": "phrase",
+   "en": "What's your name?",
+   "he": "איך קוראים לך?",
+   "icon": "chat",
+   "exampleEn": "Hi! What's your name?",
+   "exampleHe": "היי! איך קוראים לך?",
+   "noteHe": "מילולית: מה השם שלך."
+  },
+  {
+   "id": "u01-021",
+   "type": "phrase",
+   "en": "Where are you from?",
+   "he": "מאיפה את?",
+   "icon": "lang",
+   "exampleEn": "Where are you from? - I'm from Israel.",
+   "exampleHe": "מאיפה את? - אני מישראל."
+  },
+  {
+   "id": "u01-022",
+   "type": "phrase",
+   "en": "I'm from Israel",
+   "he": "אני מישראל",
+   "icon": "lang",
+   "exampleEn": "I'm from Israel. And you?",
+   "exampleHe": "אני מישראל. ומה איתך?",
+   "noteHe": "באנגלית חובה פועל: I am from. לא אומרים I from Israel."
+  },
+  {
+   "id": "u01-023",
+   "type": "phrase",
+   "en": "I live in a small city",
+   "he": "אני גרה בעיר קטנה",
+   "icon": "home",
+   "exampleEn": "I live in a small city near Tel Aviv.",
+   "exampleHe": "אני גרה בעיר קטנה ליד תל אביב."
+  },
+  {
+   "id": "u01-024",
+   "type": "phrase",
+   "en": "I'm a student",
+   "he": "אני סטודנטית",
+   "icon": "book",
+   "exampleEn": "Hi, I'm a student.",
+   "exampleHe": "היי, אני סטודנטית.",
+   "noteHe": "חובה a לפני משלח יד או מקצוע: I'm a student."
+  },
+  {
+   "id": "u01-025",
+   "type": "phrase",
+   "en": "I study English",
+   "he": "אני לומדת אנגלית",
+   "icon": "book",
+   "exampleEn": "I study English every day.",
+   "exampleHe": "אני לומדת אנגלית כל יום."
+  },
+  {
+   "id": "u01-026",
+   "type": "phrase",
+   "en": "I work in a shop",
+   "he": "אני עובדת בחנות",
+   "icon": "bag",
+   "exampleEn": "I work in a shop in the city.",
+   "exampleHe": "אני עובדת בחנות בעיר."
+  },
+  {
+   "id": "u01-027",
+   "type": "phrase",
+   "en": "What do you do?",
+   "he": "במה את עובדת?",
+   "icon": "chat",
+   "exampleEn": "What do you do? - I'm a designer.",
+   "exampleHe": "במה את עובדת? - אני מעצבת.",
+   "noteHe": "זו שאלה על עבודה או לימודים, לא 'מה את עושה עכשיו'."
+  },
+  {
+   "id": "u01-028",
+   "type": "phrase",
+   "en": "What do you study?",
+   "he": "מה את לומדת?",
+   "icon": "book",
+   "exampleEn": "What do you study at university?",
+   "exampleHe": "מה את לומדת באוניברסיטה?"
+  },
+  {
+   "id": "u01-029",
+   "type": "phrase",
+   "en": "I'm a beginner",
+   "he": "אני מתחילה",
+   "icon": "star",
+   "exampleEn": "I'm a beginner, but I'm learning.",
+   "exampleHe": "אני מתחילה, אבל אני לומדת."
+  },
+  {
+   "id": "u01-030",
+   "type": "phrase",
+   "en": "I understand a little",
+   "he": "אני מבינה קצת",
+   "icon": "head",
+   "exampleEn": "I understand a little English.",
+   "exampleHe": "אני מבינה קצת אנגלית."
+  },
+  {
+   "id": "u01-031",
+   "type": "phrase",
+   "en": "I don't understand",
+   "he": "אני לא מבינה",
+   "icon": "head",
+   "exampleEn": "Sorry, I don't understand.",
+   "exampleHe": "סליחה, אני לא מבינה."
+  },
+  {
+   "id": "u01-032",
+   "type": "phrase",
+   "en": "Can you repeat that?",
+   "he": "אפשר לחזור על זה?",
+   "icon": "chat",
+   "exampleEn": "Sorry, can you repeat that, please?",
+   "exampleHe": "סליחה, אפשר לחזור על זה, בבקשה?"
+  },
+  {
+   "id": "u01-033",
+   "type": "phrase",
+   "en": "Can you speak slowly?",
+   "he": "אפשר לדבר לאט יותר?",
+   "icon": "slow",
+   "exampleEn": "Can you speak slowly, please?",
+   "exampleHe": "אפשר לדבר לאט יותר, בבקשה?"
+  },
+  {
+   "id": "u01-034",
+   "type": "phrase",
+   "en": "What does this mean?",
+   "he": "מה זה אומר?",
+   "icon": "book",
+   "exampleEn": "Sorry, what does this mean?",
+   "exampleHe": "סליחה, מה זה אומר?"
+  },
+  {
+   "id": "u01-035",
+   "type": "phrase",
+   "en": "How do you say this in English?",
+   "he": "איך אומרים את זה באנגלית?",
+   "icon": "lang",
+   "exampleEn": "How do you say this in English?",
+   "exampleHe": "איך אומרים את זה באנגלית?"
+  },
+  {
+   "id": "u01-036",
+   "type": "phrase",
+   "en": "I don't know",
+   "he": "אני לא יודעת",
+   "icon": "head",
+   "exampleEn": "I don't know the word.",
+   "exampleHe": "אני לא יודעת את המילה."
+  },
+  {
+   "id": "u01-037",
+   "type": "phrase",
+   "en": "I'm not sure",
+   "he": "אני לא בטוחה",
+   "icon": "head",
+   "exampleEn": "I'm not sure. Let me check.",
+   "exampleHe": "אני לא בטוחה. תני לי לבדוק."
+  },
+  {
+   "id": "u01-038",
+   "type": "phrase",
+   "en": "How old are you?",
+   "he": "בת כמה את?",
+   "icon": "cal",
+   "exampleEn": "How old are you? - I'm twenty-five.",
+   "exampleHe": "בת כמה את? - אני בת עשרים וחמש.",
+   "noteHe": "בגיל אומרים I'm 25 (אפשר בלי years old). וחייבים are בשאלה."
+  },
+  {
+   "id": "u01-039",
+   "type": "phrase",
+   "en": "Do you speak English?",
+   "he": "את מדברת אנגלית?",
+   "icon": "chat",
+   "exampleEn": "Excuse me, do you speak English?",
+   "exampleHe": "סליחה, את מדברת אנגלית?"
+  },
+  {
+   "id": "u01-040",
+   "type": "phrase",
+   "en": "A little",
+   "he": "קצת",
+   "icon": "star",
+   "exampleEn": "Do you speak German? - A little.",
+   "exampleHe": "את מדברת גרמנית? - קצת."
+  },
+  {
+   "id": "u01-041",
+   "type": "phrase",
+   "en": "Me too",
+   "he": "גם אני",
+   "icon": "check",
+   "exampleEn": "I'm a student. - Me too!",
+   "exampleHe": "אני סטודנטית. - גם אני!"
+  },
+  {
+   "id": "u01-042",
+   "type": "phrase",
+   "en": "Really?",
+   "he": "באמת?",
+   "icon": "star",
+   "exampleEn": "I live in Paris. - Really?",
+   "exampleHe": "אני גרה בפריז. - באמת?"
+  },
+  {
+   "id": "u01-043",
+   "type": "phrase",
+   "en": "That's great!",
+   "he": "זה מעולה!",
+   "icon": "star",
+   "exampleEn": "You got the job? That's great!",
+   "exampleHe": "קיבלת את העבודה? זה מעולה!"
+  },
+  {
+   "id": "u01-044",
+   "type": "phrase",
+   "en": "What's your phone number?",
+   "he": "מה מספר הטלפון שלך?",
+   "icon": "bell",
+   "exampleEn": "What's your phone number?",
+   "exampleHe": "מה מספר הטלפון שלך?"
+  },
+  {
+   "id": "u01-045",
+   "type": "phrase",
+   "en": "Can I have your number?",
+   "he": "אפשר לקבל את המספר שלך?",
+   "icon": "bell",
+   "exampleEn": "Can I have your number?",
+   "exampleHe": "אפשר לקבל את המספר שלך?"
+  },
+  {
+   "id": "u01-046",
+   "type": "phrase",
+   "en": "Nice talking to you",
+   "he": "היה נעים לדבר איתך",
+   "icon": "chat",
+   "exampleEn": "Nice talking to you. See you soon!",
+   "exampleHe": "היה נעים לדבר איתך. נתראה בקרוב!"
+  },
+  {
+   "id": "u01-047",
+   "type": "phrase",
+   "en": "Have a nice day",
+   "he": "יום נעים",
+   "icon": "star",
+   "exampleEn": "Thanks! Have a nice day.",
+   "exampleHe": "תודה! יום נעים."
+  },
+  {
+   "id": "u01-048",
+   "type": "phrase",
+   "en": "Welcome!",
+   "he": "ברוכים הבאים!",
+   "icon": "home",
+   "exampleEn": "Welcome to our school!",
+   "exampleHe": "ברוכים הבאים לבית הספר שלנו!"
+  },
+  {
+   "id": "u01-049",
+   "type": "phrase",
+   "en": "See you tomorrow",
+   "he": "נתראה מחר",
+   "icon": "cal",
+   "exampleEn": "Bye! See you tomorrow.",
+   "exampleHe": "ביי! נתראה מחר."
+  }
+ ],
+ "grammar": [
+  {
+   "id": "g01-tobe",
+   "titleHe": "to be: am / is / are",
+   "ruleHe": "באנגלית חייב להיות פועל במשפט. בעברית אומרים 'אני סטודנטית', באנגלית אומרים I am a student. I am, you are, he/she/it is, we/you/they are.",
+   "examples": [
+    {
+     "en": "I am a student.",
+     "he": "אני סטודנטית."
+    },
+    {
+     "en": "She is from Italy.",
+     "he": "היא מאיטליה."
+    },
+    {
+     "en": "We are friends.",
+     "he": "אנחנו חברות."
+    }
+   ],
+   "drills": [
+    {
+     "type": "build",
+     "he": "אני מישראל",
+     "answer": "I am from Israel"
+    },
+    {
+     "type": "build",
+     "he": "היא סטודנטית",
+     "answer": "She is a student"
+    },
+    {
+     "type": "build",
+     "he": "אנחנו חברות",
+     "answer": "We are friends"
+    },
+    {
+     "type": "fill",
+     "he": "הם מספרד",
+     "text": "They ___ from Spain.",
+     "answer": "are"
+    }
+   ]
+  },
+  {
+   "id": "g01-aan",
+   "titleHe": "a / an",
+   "ruleHe": "לפני שם עצם יחיד אומרים a או an. a לפני צליל עיצור (a student), an לפני צליל תנועה (an apple, an engineer). חשוב הצליל ולא האות: an hour (ה שותקת).",
+   "examples": [
+    {
+     "en": "I am a student.",
+     "he": "אני סטודנטית."
+    },
+    {
+     "en": "She is an engineer.",
+     "he": "היא מהנדסת."
+    },
+    {
+     "en": "I need an umbrella.",
+     "he": "אני צריכה מטריה."
+    }
+   ],
+   "drills": [
+    {
+     "type": "fill",
+     "he": "אני מורה",
+     "text": "I am ___ teacher.",
+     "answer": "a"
+    },
+    {
+     "type": "fill",
+     "he": "היא מהנדסת",
+     "text": "She is ___ engineer.",
+     "answer": "an"
+    },
+    {
+     "type": "fill",
+     "he": "זה תפוח",
+     "text": "It is ___ apple.",
+     "answer": "an"
+    },
+    {
+     "type": "build",
+     "he": "אני מעצבת",
+     "answer": "I am a designer"
+    }
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "d01-1",
+   "titleHe": "להכיר מישהו חדש",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Hi! I'm Dan. What's your name?",
+     "he": "היי! אני דן. איך קוראים לך?"
+    },
+    {
+     "speaker": "B",
+     "en": "Hi Dan! My name is Noa. Nice to meet you.",
+     "he": "היי דן! קוראים לי נועה. נעים להכיר."
+    },
+    {
+     "speaker": "A",
+     "en": "Nice to meet you too. Where are you from?",
+     "he": "גם לי נעים להכיר. מאיפה את?"
+    },
+    {
+     "speaker": "B",
+     "en": "I'm from Israel. And you?",
+     "he": "אני מישראל. ומה איתך?"
+    },
+    {
+     "speaker": "A",
+     "en": "I'm from Canada. Are you a student?",
+     "he": "אני מקנדה. את סטודנטית?"
+    },
+    {
+     "speaker": "B",
+     "en": "Yes, I am. I study design. And you?",
+     "he": "כן. אני לומדת עיצוב. ומה איתך?"
+    }
+   ]
+  },
+  {
+   "id": "d01-2",
+   "titleHe": "לא הבנתי, אפשר שוב?",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Hello! Do you speak English?",
+     "he": "שלום! את מדברת אנגלית?"
+    },
+    {
+     "speaker": "B",
+     "en": "A little. I'm a beginner.",
+     "he": "קצת. אני מתחילה."
+    },
+    {
+     "speaker": "A",
+     "en": "That's great! Welcome to the class.",
+     "he": "זה מעולה! ברוכה הבאה לכיתה."
+    },
+    {
+     "speaker": "B",
+     "en": "Sorry, can you speak slowly, please?",
+     "he": "סליחה, אפשר לדבר לאט יותר, בבקשה?"
+    },
+    {
+     "speaker": "A",
+     "en": "Of course. Welcome to the class.",
+     "he": "בטח. ברוכה הבאה לכיתה."
+    },
+    {
+     "speaker": "B",
+     "en": "Thank you! I understand a little.",
+     "he": "תודה! אני מבינה קצת."
+    }
+   ]
+  }
+ ]
+}

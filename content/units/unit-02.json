@@ -1,0 +1,645 @@
+{
+ "id": "unit-02",
+ "titleHe": "בית קפה ומסעדה",
+ "icon": "coffee",
+ "color": "#f3d86b",
+ "items": [
+  {
+   "id": "u02-001",
+   "type": "phrase",
+   "en": "Could I have a coffee, please?",
+   "he": "אפשר לקבל קפה, בבקשה?",
+   "icon": "coffee",
+   "exampleEn": "Could I have a coffee, please?",
+   "exampleHe": "אפשר לקבל קפה, בבקשה?",
+   "noteHe": "הדרך המנומסת לבקש. עדיף על I want."
+  },
+  {
+   "id": "u02-002",
+   "type": "phrase",
+   "en": "Could I have a menu, please?",
+   "he": "אפשר לקבל תפריט, בבקשה?",
+   "icon": "book",
+   "exampleEn": "Could I have a menu, please?",
+   "exampleHe": "אפשר לקבל תפריט, בבקשה?"
+  },
+  {
+   "id": "u02-003",
+   "type": "phrase",
+   "en": "A table for two, please",
+   "he": "שולחן לשניים, בבקשה",
+   "icon": "home",
+   "exampleEn": "A table for two, please.",
+   "exampleHe": "שולחן לשניים, בבקשה."
+  },
+  {
+   "id": "u02-004",
+   "type": "phrase",
+   "en": "Do you have a table for two?",
+   "he": "יש לכם שולחן פנוי לשניים?",
+   "icon": "home",
+   "exampleEn": "Hi! Do you have a table for two?",
+   "exampleHe": "היי! יש לכם שולחן פנוי לשניים?",
+   "noteHe": "מילולית: יש לכם שולחן לשניים."
+  },
+  {
+   "id": "u02-005",
+   "type": "phrase",
+   "en": "Is this seat free?",
+   "he": "המקום הזה פנוי?",
+   "icon": "home",
+   "exampleEn": "Excuse me, is this seat free?",
+   "exampleHe": "סליחה, המקום הזה פנוי?"
+  },
+  {
+   "id": "u02-006",
+   "type": "phrase",
+   "en": "Can I sit here?",
+   "he": "אפשר לשבת כאן?",
+   "icon": "home",
+   "exampleEn": "Can I sit here?",
+   "exampleHe": "אפשר לשבת כאן?"
+  },
+  {
+   "id": "u02-007",
+   "type": "phrase",
+   "en": "What do you recommend?",
+   "he": "מה אתם ממליצים?",
+   "icon": "star",
+   "exampleEn": "What do you recommend?",
+   "exampleHe": "מה אתם ממליצים?"
+  },
+  {
+   "id": "u02-008",
+   "type": "phrase",
+   "en": "What's good here?",
+   "he": "מה טוב כאן?",
+   "icon": "star",
+   "exampleEn": "What's good here?",
+   "exampleHe": "מה טוב כאן?"
+  },
+  {
+   "id": "u02-009",
+   "type": "phrase",
+   "en": "I'd like a cappuccino",
+   "he": "הייתי רוצה קפוצ'ינו",
+   "icon": "coffee",
+   "exampleEn": "I'd like a cappuccino, please.",
+   "exampleHe": "הייתי רוצה קפוצ'ינו, בבקשה.",
+   "noteHe": "I'd like = I would like. מנומס יותר מ־I want."
+  },
+  {
+   "id": "u02-010",
+   "type": "phrase",
+   "en": "I'll have the pasta",
+   "he": "אני אקח את הפסטה",
+   "icon": "croissant",
+   "exampleEn": "I'll have the pasta, please.",
+   "exampleHe": "אני אקח את הפסטה, בבקשה.",
+   "noteHe": "להזמנה אומרים I'll have. לא take."
+  },
+  {
+   "id": "u02-011",
+   "type": "phrase",
+   "en": "Black coffee",
+   "he": "קפה שחור",
+   "icon": "coffee",
+   "exampleEn": "A black coffee, please.",
+   "exampleHe": "קפה שחור, בבקשה."
+  },
+  {
+   "id": "u02-012",
+   "type": "phrase",
+   "en": "With milk",
+   "he": "עם חלב",
+   "icon": "coffee",
+   "exampleEn": "A coffee with milk, please.",
+   "exampleHe": "קפה עם חלב, בבקשה."
+  },
+  {
+   "id": "u02-013",
+   "type": "phrase",
+   "en": "Without sugar",
+   "he": "בלי סוכר",
+   "icon": "coffee",
+   "exampleEn": "Tea without sugar, please.",
+   "exampleHe": "תה בלי סוכר, בבקשה."
+  },
+  {
+   "id": "u02-014",
+   "type": "phrase",
+   "en": "A glass of water",
+   "he": "כוס מים",
+   "icon": "coffee",
+   "exampleEn": "A glass of water, please.",
+   "exampleHe": "כוס מים, בבקשה."
+  },
+  {
+   "id": "u02-015",
+   "type": "phrase",
+   "en": "Tap water, please",
+   "he": "מים מהברז, בבקשה",
+   "icon": "coffee",
+   "exampleEn": "Tap water, please.",
+   "exampleHe": "מים מהברז, בבקשה."
+  },
+  {
+   "id": "u02-016",
+   "type": "phrase",
+   "en": "Sparkling water",
+   "he": "מים מוגזים",
+   "icon": "coffee",
+   "exampleEn": "Sparkling water, please.",
+   "exampleHe": "מים מוגזים, בבקשה."
+  },
+  {
+   "id": "u02-017",
+   "type": "phrase",
+   "en": "A croissant",
+   "he": "קרואסון",
+   "icon": "croissant",
+   "exampleEn": "A coffee and a croissant, please.",
+   "exampleHe": "קפה וקרואסון, בבקשה."
+  },
+  {
+   "id": "u02-018",
+   "type": "phrase",
+   "en": "A slice of cake",
+   "he": "פרוסת עוגה",
+   "icon": "croissant",
+   "exampleEn": "A slice of chocolate cake, please.",
+   "exampleHe": "פרוסת עוגת שוקולד, בבקשה."
+  },
+  {
+   "id": "u02-019",
+   "type": "phrase",
+   "en": "A sandwich",
+   "he": "כריך",
+   "icon": "croissant",
+   "exampleEn": "A cheese sandwich, please.",
+   "exampleHe": "כריך גבינה, בבקשה."
+  },
+  {
+   "id": "u02-020",
+   "type": "phrase",
+   "en": "A salad",
+   "he": "סלט",
+   "icon": "croissant",
+   "exampleEn": "I'll have a green salad.",
+   "exampleHe": "אני אקח סלט ירוק."
+  },
+  {
+   "id": "u02-021",
+   "type": "phrase",
+   "en": "For here or to go?",
+   "he": "לשבת או לקחת?",
+   "icon": "home",
+   "exampleEn": "For here or to go?",
+   "exampleHe": "לשבת או לקחת?",
+   "noteHe": "שואלים אותך את זה בקופה."
+  },
+  {
+   "id": "u02-022",
+   "type": "phrase",
+   "en": "To go, please",
+   "he": "לקחת, בבקשה",
+   "icon": "bag",
+   "exampleEn": "A coffee to go, please.",
+   "exampleHe": "קפה לקחת, בבקשה."
+  },
+  {
+   "id": "u02-023",
+   "type": "phrase",
+   "en": "For here",
+   "he": "לשבת כאן",
+   "icon": "home",
+   "exampleEn": "For here, please.",
+   "exampleHe": "לשבת כאן, בבקשה."
+  },
+  {
+   "id": "u02-024",
+   "type": "phrase",
+   "en": "Is it spicy?",
+   "he": "זה חריף?",
+   "icon": "flame",
+   "exampleEn": "Is it spicy?",
+   "exampleHe": "זה חריף?"
+  },
+  {
+   "id": "u02-025",
+   "type": "phrase",
+   "en": "Is it vegetarian?",
+   "he": "זה צמחוני?",
+   "icon": "croissant",
+   "exampleEn": "Is this dish vegetarian?",
+   "exampleHe": "המנה הזו צמחונית?"
+  },
+  {
+   "id": "u02-026",
+   "type": "phrase",
+   "en": "I'm vegetarian",
+   "he": "אני צמחונית",
+   "icon": "user",
+   "exampleEn": "I'm vegetarian. No meat, please.",
+   "exampleHe": "אני צמחונית. בלי בשר, בבקשה."
+  },
+  {
+   "id": "u02-027",
+   "type": "phrase",
+   "en": "I'm allergic to nuts",
+   "he": "יש לי אלרגיה לאגוזים",
+   "icon": "bell",
+   "exampleEn": "I'm allergic to nuts.",
+   "exampleHe": "יש לי אלרגיה לאגוזים.",
+   "noteHe": "אלרגיה ל־ זה allergic to."
+  },
+  {
+   "id": "u02-028",
+   "type": "phrase",
+   "en": "Does it contain nuts?",
+   "he": "זה מכיל אגוזים?",
+   "icon": "bell",
+   "exampleEn": "Does it contain nuts?",
+   "exampleHe": "זה מכיל אגוזים?"
+  },
+  {
+   "id": "u02-029",
+   "type": "phrase",
+   "en": "Without onions, please",
+   "he": "בלי בצל, בבקשה",
+   "icon": "croissant",
+   "exampleEn": "Without onions, please.",
+   "exampleHe": "בלי בצל, בבקשה."
+  },
+  {
+   "id": "u02-030",
+   "type": "phrase",
+   "en": "Could I have it without cheese?",
+   "he": "אפשר לקבל את זה בלי גבינה?",
+   "icon": "croissant",
+   "exampleEn": "Could I have it without cheese?",
+   "exampleHe": "אפשר לקבל את זה בלי גבינה?"
+  },
+  {
+   "id": "u02-031",
+   "type": "phrase",
+   "en": "Anything else?",
+   "he": "עוד משהו?",
+   "icon": "chat",
+   "exampleEn": "Anything else? - No, that's all.",
+   "exampleHe": "עוד משהו? - לא, זה הכל."
+  },
+  {
+   "id": "u02-032",
+   "type": "phrase",
+   "en": "That's all, thank you",
+   "he": "זה הכל, תודה",
+   "icon": "check",
+   "exampleEn": "That's all, thank you.",
+   "exampleHe": "זה הכל, תודה."
+  },
+  {
+   "id": "u02-033",
+   "type": "phrase",
+   "en": "How much is it?",
+   "he": "כמה זה עולה?",
+   "icon": "bag",
+   "exampleEn": "Excuse me, how much is it?",
+   "exampleHe": "סליחה, כמה זה עולה?"
+  },
+  {
+   "id": "u02-034",
+   "type": "phrase",
+   "en": "How much is the coffee?",
+   "he": "כמה עולה הקפה?",
+   "icon": "coffee",
+   "exampleEn": "How much is the coffee?",
+   "exampleHe": "כמה עולה הקפה?"
+  },
+  {
+   "id": "u02-035",
+   "type": "phrase",
+   "en": "Could I have the bill, please?",
+   "he": "אפשר לקבל את החשבון, בבקשה?",
+   "icon": "cal",
+   "exampleEn": "Could I have the bill, please?",
+   "exampleHe": "אפשר לקבל את החשבון, בבקשה?",
+   "noteHe": "באירופה אומרים bill. בארצות הברית אומרים check."
+  },
+  {
+   "id": "u02-036",
+   "type": "phrase",
+   "en": "Can I pay by card?",
+   "he": "אפשר לשלם בכרטיס?",
+   "icon": "bag",
+   "exampleEn": "Can I pay by card?",
+   "exampleHe": "אפשר לשלם בכרטיס?",
+   "noteHe": "משלמים ב־ כרטיס: by card."
+  },
+  {
+   "id": "u02-037",
+   "type": "phrase",
+   "en": "Do you take cards?",
+   "he": "אתם מקבלים כרטיסים?",
+   "icon": "bag",
+   "exampleEn": "Do you take cards?",
+   "exampleHe": "אתם מקבלים כרטיסים?"
+  },
+  {
+   "id": "u02-038",
+   "type": "phrase",
+   "en": "Cash only",
+   "he": "מזומן בלבד",
+   "icon": "bag",
+   "exampleEn": "Sorry, cash only.",
+   "exampleHe": "מצטערים, מזומן בלבד."
+  },
+  {
+   "id": "u02-039",
+   "type": "phrase",
+   "en": "Keep the change",
+   "he": "תשאירו את העודף",
+   "icon": "star",
+   "exampleEn": "Thanks. Keep the change.",
+   "exampleHe": "תודה. תשאירו את העודף."
+  },
+  {
+   "id": "u02-040",
+   "type": "phrase",
+   "en": "Is service included?",
+   "he": "השירות כלול?",
+   "icon": "cal",
+   "exampleEn": "Is service included?",
+   "exampleHe": "השירות כלול?"
+  },
+  {
+   "id": "u02-041",
+   "type": "phrase",
+   "en": "Can we split the bill?",
+   "he": "אפשר לחלק את החשבון?",
+   "icon": "cal",
+   "exampleEn": "Can we split the bill, please?",
+   "exampleHe": "אפשר לחלק את החשבון, בבקשה?"
+  },
+  {
+   "id": "u02-042",
+   "type": "phrase",
+   "en": "It's on me",
+   "he": "זה עליי",
+   "icon": "star",
+   "exampleEn": "Put your wallet away. It's on me.",
+   "exampleHe": "עזבי את הארנק. זה עליי."
+  },
+  {
+   "id": "u02-043",
+   "type": "phrase",
+   "en": "Enjoy your meal!",
+   "he": "בתיאבון!",
+   "icon": "star",
+   "exampleEn": "Here you go. Enjoy your meal!",
+   "exampleHe": "בבקשה. בתיאבון!"
+  },
+  {
+   "id": "u02-044",
+   "type": "phrase",
+   "en": "Thank you, it was delicious",
+   "he": "תודה, זה היה טעים",
+   "icon": "star",
+   "exampleEn": "Thank you, it was delicious!",
+   "exampleHe": "תודה, זה היה טעים!"
+  },
+  {
+   "id": "u02-045",
+   "type": "phrase",
+   "en": "Excuse me, could we order?",
+   "he": "סליחה, אפשר להזמין?",
+   "icon": "bell",
+   "exampleEn": "Excuse me, could we order?",
+   "exampleHe": "סליחה, אפשר להזמין?"
+  },
+  {
+   "id": "u02-046",
+   "type": "phrase",
+   "en": "We're ready to order",
+   "he": "אנחנו מוכנות להזמין",
+   "icon": "bell",
+   "exampleEn": "We're ready to order.",
+   "exampleHe": "אנחנו מוכנות להזמין."
+  },
+  {
+   "id": "u02-047",
+   "type": "phrase",
+   "en": "I need a few more minutes",
+   "he": "אני צריכה עוד כמה דקות",
+   "icon": "cal",
+   "exampleEn": "I need a few more minutes, please.",
+   "exampleHe": "אני צריכה עוד כמה דקות, בבקשה."
+  },
+  {
+   "id": "u02-048",
+   "type": "phrase",
+   "en": "This is not what I ordered",
+   "he": "זה לא מה שהזמנתי",
+   "icon": "pencil",
+   "exampleEn": "Sorry, this is not what I ordered.",
+   "exampleHe": "סליחה, זה לא מה שהזמנתי."
+  },
+  {
+   "id": "u02-049",
+   "type": "phrase",
+   "en": "My coffee is cold",
+   "he": "הקפה שלי קר",
+   "icon": "coffee",
+   "exampleEn": "Sorry, my coffee is cold.",
+   "exampleHe": "סליחה, הקפה שלי קר."
+  },
+  {
+   "id": "u02-050",
+   "type": "phrase",
+   "en": "Could I get a refill?",
+   "he": "אפשר למלא לי שוב?",
+   "icon": "coffee",
+   "exampleEn": "Could I get a refill, please?",
+   "exampleHe": "אפשר למלא לי שוב, בבקשה?"
+  },
+  {
+   "id": "u02-051",
+   "type": "phrase",
+   "en": "Do you have Wi-Fi?",
+   "he": "יש לכם וויי־פיי?",
+   "icon": "chat",
+   "exampleEn": "Do you have Wi-Fi here?",
+   "exampleHe": "יש לכם כאן וויי־פיי?"
+  },
+  {
+   "id": "u02-052",
+   "type": "phrase",
+   "en": "Where is the bathroom?",
+   "he": "איפה השירותים?",
+   "icon": "home",
+   "exampleEn": "Excuse me, where is the bathroom?",
+   "exampleHe": "סליחה, איפה השירותים?",
+   "noteHe": "בארצות הברית אומרים bathroom או restroom, באירופה toilet."
+  }
+ ],
+ "grammar": [
+  {
+   "id": "g02-could",
+   "titleHe": "Can I / Could I: בקשות מנומסות",
+   "ruleHe": "מבקשים משהו? מתחילים ב־Could I have…? (מנומס) או Can I have…? (רגיל). אומרים please בסוף. הימנעי מ־I want, זה נשמע תובעני.",
+   "examples": [
+    {
+     "en": "Could I have a coffee, please?",
+     "he": "אפשר לקבל קפה, בבקשה?"
+    },
+    {
+     "en": "Can I sit here?",
+     "he": "אפשר לשבת כאן?"
+    },
+    {
+     "en": "Could I have the menu, please?",
+     "he": "אפשר לקבל את התפריט, בבקשה?"
+    }
+   ],
+   "drills": [
+    {
+     "type": "build",
+     "he": "אפשר לקבל מים, בבקשה?",
+     "answer": "Could I have some water, please"
+    },
+    {
+     "type": "build",
+     "he": "אפשר לשלם בכרטיס?",
+     "answer": "Can I pay by card"
+    },
+    {
+     "type": "fill",
+     "he": "אפשר לקבל את החשבון? (מנומס)",
+     "text": "___ I have the bill, please?",
+     "answer": "Could"
+    },
+    {
+     "type": "build",
+     "he": "אפשר לשבת כאן?",
+     "answer": "Can I sit here"
+    }
+   ]
+  },
+  {
+   "id": "g02-like",
+   "titleHe": "I'd like / I'll have: להזמין אוכל",
+   "ruleHe": "כדי להזמין אומרים I'd like… (הייתי רוצה) או I'll have… (אני אקח). שניהם מנומסים. לא אומרים I take.",
+   "examples": [
+    {
+     "en": "I'd like a cappuccino, please.",
+     "he": "הייתי רוצה קפוצ'ינו, בבקשה."
+    },
+    {
+     "en": "I'll have the pasta.",
+     "he": "אני אקח את הפסטה."
+    },
+    {
+     "en": "I'd like a salad.",
+     "he": "הייתי רוצה סלט."
+    }
+   ],
+   "drills": [
+    {
+     "type": "build",
+     "he": "הייתי רוצה סלט",
+     "answer": "I would like a salad"
+    },
+    {
+     "type": "build",
+     "he": "אני אקח את הכריך",
+     "answer": "I will have the sandwich"
+    },
+    {
+     "type": "fill",
+     "he": "הייתי רוצה תה",
+     "text": "I'd ___ a tea, please.",
+     "answer": "like"
+    }
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "d02-1",
+   "titleHe": "להזמין קפה וקרואסון",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Hi! What can I get you?",
+     "he": "היי! מה אפשר להביא לך?"
+    },
+    {
+     "speaker": "B",
+     "en": "Could I have a cappuccino, please?",
+     "he": "אפשר קפוצ'ינו, בבקשה?"
+    },
+    {
+     "speaker": "A",
+     "en": "Sure. Anything else?",
+     "he": "בטח. עוד משהו?"
+    },
+    {
+     "speaker": "B",
+     "en": "A croissant, please.",
+     "he": "קרואסון, בבקשה."
+    },
+    {
+     "speaker": "A",
+     "en": "For here or to go?",
+     "he": "לשבת או לקחת?"
+    },
+    {
+     "speaker": "B",
+     "en": "For here, please. How much is it?",
+     "he": "לשבת, בבקשה. כמה זה עולה?"
+    },
+    {
+     "speaker": "A",
+     "en": "That's seven fifty.",
+     "he": "זה שבע וחצי."
+    }
+   ]
+  },
+  {
+   "id": "d02-2",
+   "titleHe": "לבקש את החשבון",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Excuse me, could I have the bill, please?",
+     "he": "סליחה, אפשר לקבל את החשבון, בבקשה?"
+    },
+    {
+     "speaker": "B",
+     "en": "Of course. Here you go.",
+     "he": "בטח. בבקשה."
+    },
+    {
+     "speaker": "A",
+     "en": "Can I pay by card?",
+     "he": "אפשר לשלם בכרטיס?"
+    },
+    {
+     "speaker": "B",
+     "en": "Yes, no problem.",
+     "he": "כן, אין בעיה."
+    },
+    {
+     "speaker": "A",
+     "en": "Thank you, it was delicious!",
+     "he": "תודה, זה היה טעים!"
+    },
+    {
+     "speaker": "B",
+     "en": "You're welcome. Have a nice day!",
+     "he": "על לא דבר. יום נעים!"
+    }
+   ]
+  }
+ ]
+}

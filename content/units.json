@@ -1,0 +1,16 @@
+{
+ "units": [
+  {"id":"unit-01","titleHe":"היכרות","subHe":"להציג את עצמי ולהכיר אנשים","icon":"user","color":"#b8cdee","open":true},
+  {"id":"unit-02","titleHe":"בית קפה ומסעדה","subHe":"להזמין, לשאול מחיר, לשלם","icon":"coffee","color":"#f3d86b","open":true},
+  {"id":"unit-03","titleHe":"קניות ואופנה","subHe":"מידות, צבעים, למדוד, להחזיר","icon":"bag","color":"#f6c4df","open":true},
+  {"id":"unit-04","titleHe":"תחבורה ונסיעות","icon":"tram","color":"#b8cdee","open":false},
+  {"id":"unit-05","titleHe":"לימודים","icon":"book","color":"#a9bf72","open":false},
+  {"id":"unit-06","titleHe":"עבודה","icon":"bag","color":"#f3d86b","open":false},
+  {"id":"unit-07","titleHe":"שיחות טלפון והודעות","icon":"bell","color":"#f6c4df","open":false},
+  {"id":"unit-08","titleHe":"בריאות ורופא","icon":"flame","color":"#b8cdee","open":false},
+  {"id":"unit-09","titleHe":"דירה ושכנים","icon":"home","color":"#a9bf72","open":false},
+  {"id":"unit-10","titleHe":"בנק ושירותים","icon":"cal","color":"#f3d86b","open":false},
+  {"id":"unit-11","titleHe":"חברים ובילויים","icon":"star","color":"#f6c4df","open":false},
+  {"id":"unit-12","titleHe":"סדרות וקולנוע","icon":"tv","color":"#b8cdee","open":false}
+ ]
+}

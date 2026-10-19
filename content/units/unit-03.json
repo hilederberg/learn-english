@@ -1,0 +1,606 @@
+{
+ "id": "unit-03",
+ "titleHe": "קניות ואופנה",
+ "icon": "bag",
+ "color": "#f6c4df",
+ "items": [
+  {
+   "id": "u03-001",
+   "type": "phrase",
+   "en": "I'm just looking, thanks",
+   "he": "אני רק מסתכלת, תודה",
+   "icon": "bag",
+   "exampleEn": "I'm just looking, thanks.",
+   "exampleHe": "אני רק מסתכלת, תודה."
+  },
+  {
+   "id": "u03-002",
+   "type": "phrase",
+   "en": "Can I help you?",
+   "he": "אפשר לעזור לך?",
+   "icon": "chat",
+   "exampleEn": "Hi! Can I help you?",
+   "exampleHe": "היי! אפשר לעזור לך?"
+  },
+  {
+   "id": "u03-003",
+   "type": "phrase",
+   "en": "I'm looking for a jacket",
+   "he": "אני מחפשת ז'קט",
+   "icon": "bag",
+   "exampleEn": "I'm looking for a black jacket.",
+   "exampleHe": "אני מחפשת ז'קט שחור.",
+   "noteHe": "I'm looking for. לא I search."
+  },
+  {
+   "id": "u03-004",
+   "type": "phrase",
+   "en": "Do you have this in a medium?",
+   "he": "יש לכם את זה במידה M?",
+   "icon": "bag",
+   "exampleEn": "Do you have this in a medium?",
+   "exampleHe": "יש לכם את זה במידה M?"
+  },
+  {
+   "id": "u03-005",
+   "type": "phrase",
+   "en": "What size do you wear?",
+   "he": "איזו מידה את לובשת?",
+   "icon": "bag",
+   "exampleEn": "What size do you wear?",
+   "exampleHe": "איזו מידה את לובשת?"
+  },
+  {
+   "id": "u03-006",
+   "type": "phrase",
+   "en": "I wear a medium",
+   "he": "אני במידה M",
+   "icon": "bag",
+   "exampleEn": "I wear a medium in tops.",
+   "exampleHe": "אני במידה M בחולצות.",
+   "noteHe": "מידה: wear a medium, לא be a medium."
+  },
+  {
+   "id": "u03-007",
+   "type": "phrase",
+   "en": "Is there a smaller size?",
+   "he": "יש מידה קטנה יותר?",
+   "icon": "bag",
+   "exampleEn": "Is there a smaller size?",
+   "exampleHe": "יש מידה קטנה יותר?"
+  },
+  {
+   "id": "u03-008",
+   "type": "phrase",
+   "en": "Is there a bigger size?",
+   "he": "יש מידה גדולה יותר?",
+   "icon": "bag",
+   "exampleEn": "Is there a bigger size?",
+   "exampleHe": "יש מידה גדולה יותר?"
+  },
+  {
+   "id": "u03-009",
+   "type": "phrase",
+   "en": "Could I try this on?",
+   "he": "אפשר למדוד את זה?",
+   "icon": "user",
+   "exampleEn": "Could I try this on, please?",
+   "exampleHe": "אפשר למדוד את זה, בבקשה?",
+   "noteHe": "למדוד בגד זה try on, לא measure."
+  },
+  {
+   "id": "u03-010",
+   "type": "phrase",
+   "en": "Where is the fitting room?",
+   "he": "איפה חדר ההלבשה?",
+   "icon": "home",
+   "exampleEn": "Excuse me, where is the fitting room?",
+   "exampleHe": "סליחה, איפה חדר ההלבשה?"
+  },
+  {
+   "id": "u03-011",
+   "type": "phrase",
+   "en": "How does it fit?",
+   "he": "איך זה יושב עליך?",
+   "icon": "user",
+   "exampleEn": "How does it fit?",
+   "exampleHe": "איך זה יושב עליך?"
+  },
+  {
+   "id": "u03-012",
+   "type": "phrase",
+   "en": "It fits perfectly",
+   "he": "זה יושב מושלם",
+   "icon": "check",
+   "exampleEn": "It fits perfectly!",
+   "exampleHe": "זה יושב מושלם!"
+  },
+  {
+   "id": "u03-013",
+   "type": "phrase",
+   "en": "It's too small",
+   "he": "זה קטן מדי",
+   "icon": "bag",
+   "exampleEn": "Sorry, it's too small.",
+   "exampleHe": "סליחה, זה קטן מדי.",
+   "noteHe": "too לפני תואר: too small, too big."
+  },
+  {
+   "id": "u03-014",
+   "type": "phrase",
+   "en": "It's too big",
+   "he": "זה גדול מדי",
+   "icon": "bag",
+   "exampleEn": "It's a bit too big.",
+   "exampleHe": "זה קצת גדול מדי."
+  },
+  {
+   "id": "u03-015",
+   "type": "phrase",
+   "en": "It's too tight",
+   "he": "זה צמוד מדי",
+   "icon": "bag",
+   "exampleEn": "The jeans are too tight.",
+   "exampleHe": "הג'ינס צמוד מדי."
+  },
+  {
+   "id": "u03-016",
+   "type": "phrase",
+   "en": "It's too long",
+   "he": "זה ארוך מדי",
+   "icon": "bag",
+   "exampleEn": "The dress is too long.",
+   "exampleHe": "השמלה ארוכה מדי."
+  },
+  {
+   "id": "u03-017",
+   "type": "phrase",
+   "en": "I love it!",
+   "he": "אני מתה על זה!",
+   "icon": "star",
+   "exampleEn": "Wow, I love it!",
+   "exampleHe": "וואו, אני מתה על זה!"
+  },
+  {
+   "id": "u03-018",
+   "type": "phrase",
+   "en": "I don't like the color",
+   "he": "אני לא אוהבת את הצבע",
+   "icon": "pencil",
+   "exampleEn": "I don't like the color.",
+   "exampleHe": "אני לא אוהבת את הצבע."
+  },
+  {
+   "id": "u03-019",
+   "type": "phrase",
+   "en": "Do you have it in black?",
+   "he": "יש לכם את זה בשחור?",
+   "icon": "bag",
+   "exampleEn": "Do you have it in black?",
+   "exampleHe": "יש לכם את זה בשחור?"
+  },
+  {
+   "id": "u03-020",
+   "type": "phrase",
+   "en": "Red",
+   "he": "אדום",
+   "icon": "pencil",
+   "exampleEn": "I'd like the red one.",
+   "exampleHe": "הייתי רוצה את האדום."
+  },
+  {
+   "id": "u03-021",
+   "type": "phrase",
+   "en": "Blue",
+   "he": "כחול",
+   "icon": "pencil",
+   "exampleEn": "I like the blue dress.",
+   "exampleHe": "אני אוהבת את השמלה הכחולה."
+  },
+  {
+   "id": "u03-022",
+   "type": "phrase",
+   "en": "Green",
+   "he": "ירוק",
+   "icon": "pencil",
+   "exampleEn": "Do you have it in green?",
+   "exampleHe": "יש לכם את זה בירוק?"
+  },
+  {
+   "id": "u03-023",
+   "type": "phrase",
+   "en": "Black",
+   "he": "שחור",
+   "icon": "pencil",
+   "exampleEn": "I always wear black.",
+   "exampleHe": "אני תמיד לובשת שחור."
+  },
+  {
+   "id": "u03-024",
+   "type": "phrase",
+   "en": "White",
+   "he": "לבן",
+   "icon": "pencil",
+   "exampleEn": "A white shirt, please.",
+   "exampleHe": "חולצה לבנה, בבקשה."
+  },
+  {
+   "id": "u03-025",
+   "type": "phrase",
+   "en": "Pink",
+   "he": "ורוד",
+   "icon": "pencil",
+   "exampleEn": "I love pink.",
+   "exampleHe": "אני אוהבת ורוד."
+  },
+  {
+   "id": "u03-026",
+   "type": "phrase",
+   "en": "Beige",
+   "he": "בז'",
+   "icon": "pencil",
+   "exampleEn": "I'm looking for a beige coat.",
+   "exampleHe": "אני מחפשת מעיל בז'."
+  },
+  {
+   "id": "u03-027",
+   "type": "phrase",
+   "en": "A dress",
+   "he": "שמלה",
+   "icon": "user",
+   "exampleEn": "I'm looking for a dress.",
+   "exampleHe": "אני מחפשת שמלה."
+  },
+  {
+   "id": "u03-028",
+   "type": "phrase",
+   "en": "A shirt",
+   "he": "חולצה",
+   "icon": "user",
+   "exampleEn": "I need a new shirt for work.",
+   "exampleHe": "אני צריכה חולצה חדשה לעבודה."
+  },
+  {
+   "id": "u03-029",
+   "type": "phrase",
+   "en": "A skirt",
+   "he": "חצאית",
+   "icon": "user",
+   "exampleEn": "I love this skirt.",
+   "exampleHe": "אני מתה על החצאית הזו."
+  },
+  {
+   "id": "u03-030",
+   "type": "phrase",
+   "en": "Jeans",
+   "he": "ג'ינס",
+   "icon": "bag",
+   "exampleEn": "These jeans are great.",
+   "exampleHe": "הג'ינס האלה מעולים.",
+   "noteHe": "jeans תמיד ברבים: these jeans, my jeans."
+  },
+  {
+   "id": "u03-031",
+   "type": "phrase",
+   "en": "Trousers",
+   "he": "מכנסיים",
+   "icon": "bag",
+   "exampleEn": "I need new trousers.",
+   "exampleHe": "אני צריכה מכנסיים חדשים.",
+   "noteHe": "באנגלית אמריקנית: pants. בבריטית ובאירופה: trousers."
+  },
+  {
+   "id": "u03-032",
+   "type": "phrase",
+   "en": "A jacket",
+   "he": "ז'קט",
+   "icon": "bag",
+   "exampleEn": "It's a warm jacket.",
+   "exampleHe": "זה ז'קט חם."
+  },
+  {
+   "id": "u03-033",
+   "type": "phrase",
+   "en": "A coat",
+   "he": "מעיל",
+   "icon": "bag",
+   "exampleEn": "I need a warm coat.",
+   "exampleHe": "אני צריכה מעיל חם."
+  },
+  {
+   "id": "u03-034",
+   "type": "phrase",
+   "en": "A sweater",
+   "he": "סוודר",
+   "icon": "bag",
+   "exampleEn": "It's a soft sweater.",
+   "exampleHe": "זה סוודר רך."
+  },
+  {
+   "id": "u03-035",
+   "type": "phrase",
+   "en": "Shoes",
+   "he": "נעליים",
+   "icon": "bag",
+   "exampleEn": "I'm looking for black shoes.",
+   "exampleHe": "אני מחפשת נעליים שחורות."
+  },
+  {
+   "id": "u03-036",
+   "type": "phrase",
+   "en": "A bag",
+   "he": "תיק",
+   "icon": "bag",
+   "exampleEn": "I love your bag.",
+   "exampleHe": "אני מתה על התיק שלך."
+  },
+  {
+   "id": "u03-037",
+   "type": "phrase",
+   "en": "A scarf",
+   "he": "צעיף",
+   "icon": "bag",
+   "exampleEn": "It's a beautiful scarf.",
+   "exampleHe": "זה צעיף יפהפה."
+  },
+  {
+   "id": "u03-038",
+   "type": "phrase",
+   "en": "How much is this?",
+   "he": "כמה זה עולה?",
+   "icon": "bag",
+   "exampleEn": "How much is this?",
+   "exampleHe": "כמה זה עולה?",
+   "noteHe": "על פריט אחד: this. על כמה פריטים: How much are these?"
+  },
+  {
+   "id": "u03-039",
+   "type": "phrase",
+   "en": "How much are these?",
+   "he": "כמה אלה עולים?",
+   "icon": "bag",
+   "exampleEn": "How much are these shoes?",
+   "exampleHe": "כמה עולות הנעליים האלה?"
+  },
+  {
+   "id": "u03-040",
+   "type": "phrase",
+   "en": "It's too expensive",
+   "he": "זה יקר מדי",
+   "icon": "bag",
+   "exampleEn": "Sorry, it's too expensive.",
+   "exampleHe": "סליחה, זה יקר מדי."
+  },
+  {
+   "id": "u03-041",
+   "type": "phrase",
+   "en": "Do you have a cheaper one?",
+   "he": "יש לכם משהו זול יותר?",
+   "icon": "bag",
+   "exampleEn": "Do you have a cheaper one?",
+   "exampleHe": "יש לכם משהו זול יותר?"
+  },
+  {
+   "id": "u03-042",
+   "type": "phrase",
+   "en": "Is it on sale?",
+   "he": "זה במבצע?",
+   "icon": "star",
+   "exampleEn": "Is this jacket on sale?",
+   "exampleHe": "הז'קט הזה במבצע?"
+  },
+  {
+   "id": "u03-043",
+   "type": "phrase",
+   "en": "Is there a discount?",
+   "he": "יש הנחה?",
+   "icon": "star",
+   "exampleEn": "Is there a student discount?",
+   "exampleHe": "יש הנחה לסטודנטים?"
+  },
+  {
+   "id": "u03-044",
+   "type": "phrase",
+   "en": "I'll take it",
+   "he": "אני לוקחת את זה",
+   "icon": "check",
+   "exampleEn": "It's perfect. I'll take it.",
+   "exampleHe": "זה מושלם. אני לוקחת את זה."
+  },
+  {
+   "id": "u03-045",
+   "type": "phrase",
+   "en": "Could I have a bag, please?",
+   "he": "אפשר שקית, בבקשה?",
+   "icon": "bag",
+   "exampleEn": "Could I have a bag, please?",
+   "exampleHe": "אפשר שקית, בבקשה?"
+  },
+  {
+   "id": "u03-046",
+   "type": "phrase",
+   "en": "Could I have a receipt?",
+   "he": "אפשר קבלה?",
+   "icon": "cal",
+   "exampleEn": "Could I have a receipt, please?",
+   "exampleHe": "אפשר קבלה, בבקשה?"
+  },
+  {
+   "id": "u03-047",
+   "type": "phrase",
+   "en": "Can I return this?",
+   "he": "אפשר להחזיר את זה?",
+   "icon": "bag",
+   "exampleEn": "Can I return this?",
+   "exampleHe": "אפשר להחזיר את זה?"
+  },
+  {
+   "id": "u03-048",
+   "type": "phrase",
+   "en": "Can I exchange this?",
+   "he": "אפשר להחליף את זה?",
+   "icon": "bag",
+   "exampleEn": "Can I exchange this for a larger size?",
+   "exampleHe": "אפשר להחליף את זה במידה גדולה יותר?"
+  },
+  {
+   "id": "u03-049",
+   "type": "phrase",
+   "en": "I'd like a refund",
+   "he": "הייתי רוצה החזר כספי",
+   "icon": "cal",
+   "exampleEn": "I'd like a refund, please.",
+   "exampleHe": "הייתי רוצה החזר כספי, בבקשה."
+  }
+ ],
+ "grammar": [
+  {
+   "id": "g03-this",
+   "titleHe": "this / that / these / those",
+   "ruleHe": "this ו־these מצביעים על משהו קרוב (this ליחיד, these לרבים). that ו־those על משהו רחוק (that ליחיד, those לרבים).",
+   "examples": [
+    {
+     "en": "I like this dress.",
+     "he": "אני אוהבת את השמלה הזו."
+    },
+    {
+     "en": "How much are these shoes?",
+     "he": "כמה עולות הנעליים האלה?"
+    },
+    {
+     "en": "Can I try those jeans?",
+     "he": "אפשר למדוד את הג'ינס ההם?"
+    }
+   ],
+   "drills": [
+    {
+     "type": "build",
+     "he": "אני אוהבת את השמלה הזו",
+     "answer": "I like this dress"
+    },
+    {
+     "type": "build",
+     "he": "כמה עולות הנעליים האלה",
+     "answer": "How much are these shoes"
+    },
+    {
+     "type": "fill",
+     "he": "אפשר למדוד את המעיל ההוא?",
+     "text": "Can I try ___ coat on?",
+     "answer": "that"
+    }
+   ]
+  },
+  {
+   "id": "g03-too",
+   "titleHe": "too + תואר: מדי",
+   "ruleHe": "כדי לומר שמשהו 'מדי' שמים too לפני התואר: too small, too big, too expensive. לא אומרים very במובן הזה.",
+   "examples": [
+    {
+     "en": "It's too small.",
+     "he": "זה קטן מדי."
+    },
+    {
+     "en": "The dress is too long.",
+     "he": "השמלה ארוכה מדי."
+    },
+    {
+     "en": "It's too expensive.",
+     "he": "זה יקר מדי."
+    }
+   ],
+   "drills": [
+    {
+     "type": "build",
+     "he": "זה גדול מדי",
+     "answer": "It is too big"
+    },
+    {
+     "type": "build",
+     "he": "הג'ינס צמוד מדי",
+     "answer": "The jeans are too tight"
+    },
+    {
+     "type": "fill",
+     "he": "זה יקר מדי",
+     "text": "It's ___ expensive.",
+     "answer": "too"
+    }
+   ]
+  }
+ ],
+ "dialogues": [
+  {
+   "id": "d03-1",
+   "titleHe": "למדוד בגדים בחנות",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Hi! Can I help you?",
+     "he": "היי! אפשר לעזור לך?"
+    },
+    {
+     "speaker": "B",
+     "en": "I'm looking for a black jacket.",
+     "he": "אני מחפשת ז'קט שחור."
+    },
+    {
+     "speaker": "A",
+     "en": "Sure. What size do you wear?",
+     "he": "בטח. איזו מידה את לובשת?"
+    },
+    {
+     "speaker": "B",
+     "en": "I wear a medium. Could I try this on?",
+     "he": "אני במידה M. אפשר למדוד את זה?"
+    },
+    {
+     "speaker": "A",
+     "en": "Of course. The fitting room is over there.",
+     "he": "בטח. חדר ההלבשה שם."
+    },
+    {
+     "speaker": "B",
+     "en": "Thank you. How much is it?",
+     "he": "תודה. כמה זה עולה?"
+    }
+   ]
+  },
+  {
+   "id": "d03-2",
+   "titleHe": "להחליף מידה",
+   "lines": [
+    {
+     "speaker": "A",
+     "en": "Hi! Can I exchange this?",
+     "he": "היי! אפשר להחליף את זה?"
+    },
+    {
+     "speaker": "B",
+     "en": "Sure. What's the problem?",
+     "he": "בטח. מה הבעיה?"
+    },
+    {
+     "speaker": "A",
+     "en": "It's too small. Is there a bigger size?",
+     "he": "זה קטן מדי. יש מידה גדולה יותר?"
+    },
+    {
+     "speaker": "B",
+     "en": "Let me check. Yes, here you go.",
+     "he": "תני לי לבדוק. כן, בבקשה."
+    },
+    {
+     "speaker": "A",
+     "en": "It fits perfectly. I'll take it!",
+     "he": "זה יושב מושלם. אני לוקחת את זה!"
+    },
+    {
+     "speaker": "B",
+     "en": "Great. Can I see your receipt, please?",
+     "he": "מעולה. אפשר לראות את הקבלה, בבקשה?"
+    }
+   ]
+  }
+ ]
+}
