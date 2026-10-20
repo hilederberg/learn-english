@@ -388,7 +388,7 @@ async function act(a, el) {
     }
     case 'goal': { const g = S.ui.goals; const i = g.indexOf(v); if (i < 0) g.push(v); else g.splice(i, 1); return void go('goals', UI.goals(g), 'swap'); }
     case 'time': S.settings.minutes = +v; return void go('time', UI.timeChoice(S.settings.minutes, S.settings.restDay), 'swap');
-    case 'toggle': S.settings.restDay = !S.settings.restDay; el.classList.toggle('on', S.settings.restDay); return save.settings();
+    case 'toggle': S.settings.restDay = !S.settings.restDay; el.classList.toggle('on', S.settings.restDay); el.setAttribute('aria-checked', String(S.settings.restDay)); return save.settings();
     case 'ob': return obGo(v);
     case 'set': return setSetting(v, el);
     case 'tips': return void openSheet(UI.tipsSheet());
@@ -466,7 +466,14 @@ $app.addEventListener('touchend', e => {
 $app.addEventListener('touchcancel', () => { touch = null; if (drag) { const d = drag; drag = null; d.h.end(false); } }, { passive: true });
 
 $app.addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) { onImportFile(e.target.files[0]); e.target.value = ''; } });
-$app.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'fillIn') { e.preventDefault(); onCheck(); } });
+$app.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id === 'fillIn') { e.preventDefault(); onCheck(); return; }
+  // Keyboard access: Enter / Space activate the div-buttons like a tap.
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches?.('[role=button],[role=switch]')) { e.preventDefault(); e.target.click(); }
+});
+// Make every div-button / switch reachable with Tab, including screens added later.
+const focusable = n => { if (n.nodeType !== 1) return; if (n.matches('[role=button],[role=switch]') && !n.hasAttribute('tabindex')) n.tabIndex = 0; n.querySelectorAll('[role=button],[role=switch]').forEach(x => { if (!x.hasAttribute('tabindex')) x.tabIndex = 0; }); };
+new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(focusable))).observe($app, { childList: true, subtree: true });
 $app.addEventListener('input', e => { if (e.target.id === 'fillIn') $('#chk').classList.toggle('off', !e.target.value.trim()); });
 addEventListener('online', () => { S.offline = false; refreshHomeBanner(); });
 addEventListener('offline', () => { S.offline = true; refreshHomeBanner(); });
