@@ -109,7 +109,8 @@ html{-webkit-text-size-adjust:100%}
 .nav .t{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:700;color:#bdb5a5;width:62px}
 .nav .t.on{color:#f8f2e4}
 .nav .t .ico{width:26px;height:26px}
-.nav .plus{width:64px;height:64px;border-radius:50%;background:var(--pink);border:5px solid var(--bg);margin-top:-34px;display:flex;align-items:center;justify-content:center;--ik:#1d1d1d;--f:#f6c4df}
+.nav .plusw{display:flex;flex-direction:column;align-items:center;gap:2px;width:64px;margin-top:-34px;font-size:12px;font-weight:700;color:#f8f2e4}
+.nav .plus{width:64px;height:64px;border-radius:50%;background:var(--pink);border:5px solid var(--bg);display:flex;align-items:center;justify-content:center;--ik:#1d1d1d;--f:#fffaf0}
 .nav .plus .ico{width:30px;height:30px}
 
 /* lists */

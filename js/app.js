@@ -20,7 +20,7 @@ const now = () => new Date();
 const today = () => dayKey(now());
 const standalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
 const toast = msg => {
-  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; (current()?.el || $app).appendChild(t);
+  const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg; (current()?.el || $app).appendChild(t);
   A(t, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: EASE });
   setTimeout(() => A(t, [{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).finished?.then(() => t.remove()).catch(() => t.remove()), 2600);
 };
@@ -229,6 +229,8 @@ async function onMic() {
     S.ui.rec = rec; recUI();
   } catch (e) {
     if (e && e.name === 'NotSupportedError') { toast('ההקלטה לא נתמכת במכשיר הזה'); S.ui.blob = null; await renderCompare(); }
+    else if (e && (e.name === 'NotReadableError' || e.name === 'AbortError')) toast('המיקרופון תפוס באפליקציה אחרת. סגרי אותה ונסי שוב');
+    else if (e && e.name === 'NotFoundError') toast('לא נמצא מיקרופון במכשיר');
     else await go('mic', UI.micPermission(), 'push');
   } finally { S.ui.micBusy = false; }
 }
