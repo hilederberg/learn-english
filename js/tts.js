@@ -103,12 +103,26 @@ function synth(text, { slow, pref, pitch }) {
 }
 
 // ---- recording --------------------------------------------------------------------------------
+// iOS (above all a home-screen app) asks for the mic again on every getUserMedia once the previous stream was
+// stopped. So the stream is kept between recordings and released only after a quiet spell or when the app is hidden.
+const MIC_IDLE_MS = 3 * 60 * 1000;
+let micStream = null, micTimer = 0;
+const micLive = s => s && s.getAudioTracks().some(t => t.readyState === 'live' && !t.muted);
+function releaseMic() { clearTimeout(micTimer); if (micStream) micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+document.addEventListener('visibilitychange', () => { if (document.hidden && !recording) releaseMic(); });
+async function getMic() {
+  clearTimeout(micTimer);
+  if (micLive(micStream)) return micStream;
+  releaseMic();
+  micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  return micStream;
+}
 export async function startRecording() {
   if (!navigator.mediaDevices || !window.MediaRecorder) throw Object.assign(new Error('unsupported'), { name: 'NotSupportedError' });
   recording = true; setSession('play-and-record'); // 'playback' alone can block the microphone on iOS
   let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { recording = false; setSession('playback'); throw e; }
-  const done = () => { recording = false; setSession('playback'); };
+  try { stream = await getMic(); } catch (e) { recording = false; setSession('playback'); throw e; }
+  const done = () => { recording = false; setSession('playback'); clearTimeout(micTimer); micTimer = setTimeout(releaseMic, MIC_IDLE_MS); };
   const types = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'];
   const mime = types.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t));
   const rec = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
@@ -117,11 +131,11 @@ export async function startRecording() {
   return {
     stop() {
       return new Promise(res => {
-        rec.onstop = () => { stream.getTracks().forEach(t => t.stop()); done(); res(new Blob(chunks, { type: rec.mimeType || mime || 'audio/mp4' })); };
-        try { rec.stop(); } catch (e) { stream.getTracks().forEach(t => t.stop()); done(); res(new Blob(chunks)); }
+        rec.onstop = () => { done(); res(new Blob(chunks, { type: rec.mimeType || mime || 'audio/mp4' })); };
+        try { rec.stop(); } catch (e) { done(); res(new Blob(chunks)); }
       });
     },
-    cancel() { try { rec.stop(); } catch (e) { /* */ } stream.getTracks().forEach(t => t.stop()); done(); },
+    cancel() { try { rec.stop(); } catch (e) { /* */ } done(); },
   };
 }
 export function playBlob(blob) {
